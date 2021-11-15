@@ -27,7 +27,7 @@ class NumberShow:
 
 
 exp1 = NumberShow(8)
-exp1.show()  #результат 8
+exp1.show()  # результат 8
 
 
 # Создать класс, который наследуется от предыдущего класса и в этот класс передается два числа. Данный класс\
@@ -40,10 +40,55 @@ class NumberCalc(NumberShow):
     def __add__(self):
         return self.number + self.number2
 
+
 exp1 = NumberCalc(2, 11)
 exp3 = NumberCalc
-exp3.__add__(exp1)    #результат 13
-
+exp3.__add__(exp1)  # результат 13
 
 # Создать блок try/except/finally Внутри блока try создать выражение, которое делит на 0. Перехватить эту ошибку и\
 # распечатать сообщение пользвоателю.
+
+try:
+    1 / 0  # Division Error by 0
+except ZeroDivisionError:
+    print("Нельзя делить на ноль")
+else:
+    print("No errors")
+finally:
+    print("Конец блока")
+
+
+# Создать декоратор, который перед запуском функции распечатывает все аргументы вызываемой функции.
+def FuncDecor(func):
+    def NextFunc(arg1, arg2):
+        print('Look at my arguments: ', arg1, arg2)
+        func(arg1, arg2)
+    return NextFunc
+
+@FuncDecor
+def few(x, y):
+    return x, y
+
+few(11, 34)    #результат "Look at my arguments:  11 44"
+
+
+# Создать класс в котором применить декоартор @property для доступа к внутренней переменной.
+
+# Создать генератор который возвращается числа от 1 до 10
+def MyGenerator(x):
+    y = 1
+    while y < x:
+        yield y
+        y += 1
+
+for numgen in MyGenerator(11):
+    print(numgen)
+
+
+# С помощью стандартной функции collections.namedtuple создать объект для хранения точки в трехмерном пространстве.
+
+# Создать пакет в котором будет функция для распечатки текущей даты (можно использовать пакет datetime). Для данного\
+# пакета подготовить setup.py для установки.
+from datetime import datetime as CurrentDate
+
+print(CurrentDate.now())
