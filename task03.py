@@ -63,13 +63,16 @@ def FuncDecor(func):
     def NextFunc(arg1, arg2):
         print('Look at my arguments: ', arg1, arg2)
         func(arg1, arg2)
+
     return NextFunc
+
 
 @FuncDecor
 def few(x, y):
     return x, y
 
-few(11, 34)    #результат "Look at my arguments:  11 44"
+
+few(11, 34)  # результат "Look at my arguments:  11 44"
 
 
 # Создать класс в котором применить декоартор @property для доступа к внутренней переменной.
@@ -81,14 +84,18 @@ def MyGenerator(x):
         yield y
         y += 1
 
+
 for numgen in MyGenerator(11):
     print(numgen)
-
 
 # С помощью стандартной функции collections.namedtuple создать объект для хранения точки в трехмерном пространстве.
 
 # Создать пакет в котором будет функция для распечатки текущей даты (можно использовать пакет datetime). Для данного\
 # пакета подготовить setup.py для установки.
-from datetime import datetime as CurrentDate
+from datetime import datetime as DateTime
 
-print(CurrentDate.now())
+
+def currentdate():
+    return DateTime.now()
+
+print(currentdate())    #результат  2021-11-16 14:52:42.168636

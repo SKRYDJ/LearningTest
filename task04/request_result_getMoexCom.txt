@@ -1,0 +1,1830 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!--w1-->
+    <title>
+	Московская Биржа
+</title><meta id="ctl00_metaDescription" name="description" content="Московская биржа — крупнейший российский биржевой холдинг. Является организатором торгов акциями, облигациями, производными инструментами, валютой, инструментами денежного рынка, драгоценными металлами, зерном и сахаром." /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta id="ctl00_viewport" name="viewport" content="width=device-width, initial-scale=1" /><meta name="yandex-verification" content="673c9d708859738e" /><meta name="google-site-verification" content="UzyoygMTAUWLFgbbUqyBicWL7AF2hFPyzV0yM2H2FLs" />
+    <link href="/styles/carousel.css?v=20211126154646173" rel="stylesheet" type="text/css" /><link rel="icon" href="/images/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <script src="/static-content/libs/vue-2.6.10/vue.min.js"></script>
+
+	<link href="/styles/component-new-menu.css?v=20211126154646173" rel="stylesheet" type="text/css" /><link href="/js/registrationSubscriptions/jquery.cart.css?v=20211126154644173" rel="stylesheet" type="text/css" /><link href="/styles/font-awesome.css?v=20211126154646173" rel="stylesheet" type="text/css" /><meta property="og:site_name" content="Московская Биржа" /><meta id="ctl00_OgTitle" property="og:title" content="Московская Биржа" /><meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+    <![if IE]>
+        <script src="/js/babel-polyfill.bundle.min.js?v=20211126154642173" type="text/javascript"></script>
+    <![endif]>
+    <script src="/js/main-config.js?langId=1" type="text/javascript"></script>
+    <script src="/js/jquery-1.11.2.min.js?v=20211126154642173" type="text/javascript"></script><script src="/js/jquery-ui-1.10.3.min.js?v=20211126154642173" type="text/javascript"></script><script src="/js/underscore-min.js?v=20211126154644173" type="text/javascript"></script><script src="/js/kizzy.min.js?v=20211126154642173" type="text/javascript"></script><script src="/static-content/widgets/assets/mx.assets.min.js?v=20211126154646173" type="text/javascript"></script><script src="/static-content/widgets/assets/mx.auth.min.js?v=20211126154646173" type="text/javascript"></script>
+
+<style type="text/css">
+	.highcharts-root > text {
+		display: none;
+	}
+
+	select > *,
+	label > * {
+		pointer-events: none;
+	}
+</style>
+
+<script type="text/javascript" src="/bundles/moex-master?v=NSCQrlWWnYWUqKvL4bs5e29ngpFDTJ42_xC0bGIhj4M1"></script>
+
+<script type="text/javascript">
+	window.moex = window.moex || {};
+	var moex = window.moex;
+	var lang = "ru";
+
+	window.page = window.page || {};
+	window.page = {
+		lang: function () {
+			return 'ru';
+		},
+		ru: function (lang) {
+			if (lang) {
+				return lang.toString().trim().toLowerCase() === 'ru';
+			}
+
+			return true;
+		},
+		en: function (lang) {
+			if (lang) {
+				return lang.toString().trim().toLowerCase() === 'en';
+			}
+
+			return false;
+		}
+	};
+
+    window.mx.locale(lang);
+	window.mx.I18n.locale = lang;
+
+
+	// класс для локализации
+	moex.localizer = {
+		langName: 'ru',
+		lang: 'ru',
+		langId: 1,
+		translateEnRu: function (en, ru) {
+			if (this.langId === 2) {
+				return en;
+			}
+			return ru;
+		},
+		translateRuEn: function (ru, en) {
+			return this.translate(en, ru);
+		},
+		translate: function (en, ru) {
+			if (Array.isArray(en)) {
+				return this.translateEnRu(en[0], en[1]);
+			};
+
+			if (moex.helper.isString(en)) {
+				return this.translateEnRu(en, ru);
+			}
+			else if (en) {
+				return this.translateLCC(en);
+			}
+			return en;
+		},
+		translateLCC: function (languageContentCollection) {
+			if (languageContentCollection && languageContentCollection[moex.localizer.lang]) {
+				return languageContentCollection[moex.localizer.lang].Content;
+			}
+			return languageContentCollection;
+		}
+	};
+
+	window.moex = window.moex || {};
+	window.moex.web = window.moex.web || {};
+	window.moex.web.api = window.moex.web.api || {};
+	window.moex.web.api.microcms = window.moex.web.api.microcms || {};
+	window.moex.web.api.microcms.baseUrl = '/api/stat/microcms';
+
+	window.moex.web.api.secms = window.moex.web.api.secms || {};
+	window.moex.web.api.secms.baseUrl = window.moex.web.api.microcms.baseUrl;
+	
+
+	window.moex.web.api.stat = window.moex.web.api.stat || {};
+	window.moex.web.api.stat.outlook = window.moex.web.api.stat.outlook || {};
+	window.moex.web.api.stat.outlook.baseUrl = '/api/stat/outlook';
+
+	window.moex.informer = window.moex.informer || {};
+	window.moex.informer.baseUrl = 'https://informer.moex.com';
+	window.moex.debug = window.moex.debug || {};
+	window.moex.debug.log = function (data) {
+		
+	};
+
+	moex.indices = moex.indices || {};
+    moex.indices._aliases = {
+	"MICEX10INDEX": "MOEX10",
+	"RTSSTD": "MOEXBC",
+	"MICEXBMI": "MOEXBMI",
+	"MICEXCHM": "MOEXCH",
+	"MICEXCGS": "MOEXCN",
+	"MICEXPWR": "MOEXEU",
+	"MICEXFNL": "MOEXFN",
+	"MICEXINNOV": "MOEXINN",
+	"MICEXM&M": "MOEXMM",
+	"MICEXO&G": "MOEXOG",
+	"MICEXTLC": "MOEXTL",
+	"MICEXTRN": "MOEXTN",
+	"MICEXCBITR": "RUCBITR",
+	"MICEXCBICP": "RUCBICP",
+	"MICEXMBITR": "RUMBITR",
+	"MICEXMBICP": "RUMBICP",
+	"MICEXCBITR5Y": "RUCBTR5Y",
+	"MICEXCBICP5Y": "RUCBCP5Y",
+	"MICEXCBITR3Y": "RUCBTR3Y",
+	"MICEXCBICP3Y": "RUCBCP3Y"
+};
+
+    window.moex.fs = window.moex.fs || {};
+    window.moex.fs.baseUrl = 'https://fs.moex.com';
+</script>
+
+<script rel="script" src="/js/Highstock-6.1.2/code/highstock.js" type="text/javascript"></script><script rel="script" src="/mxassets/mx.cs/highstock_locale.js" type="text/javascript"></script><script src="/js/jquery.tabs.js?v=20211126154642173" type="text/javascript"></script><script src="/js/jquery.corner.js?v=20211126154642173" type="text/javascript"></script><script src="/js/jquery.cookie.js?v=20211126154642173" type="text/javascript"></script><script src="/js/common.js?v=20211126154642173" type="text/javascript"></script><script src="/js/tools/cookie.js?v=20211126154644173" type="text/javascript"></script><script src="/js/main-ru.js?v=20211126154642173" type="text/javascript"></script><script src="/js/modernizr.custom.js?v=20211126154642173" type="text/javascript"></script><script src="/js/jquery.dropdown.js?v=20211126154642173" type="text/javascript"></script><script src="/js/widgets/main_widgetscall.js?v=20211126154644173" type="text/javascript"></script>
+	<meta name="System.UX" content="0,838" />
+<link rel='stylesheet' href='/static-content/widgets/assets/mx.auth.css' type='text/css' />
+    <script type='text/javascript'>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-27780661-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    <link rel="yandex-tableau-widget" href="/manifestmb.json" />
+
+    <!--[if lt IE 9]>
+        <script src="/moex/dist/js/html5shiv.js?v=20211126154644173" type="text/javascript"></script><script src="/moex/dist/js/respond.min.js?v=20211126154644173" type="text/javascript"></script><script src="js/css3-mediaqueries.js?v=20190611130200" type="text/javascript"></script>
+    <![endif]-->
+
+    <script src="/moex/dist/js/library.min.js?v=20211126154644173" type="text/javascript"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js?v=20190611130200" type="text/javascript"></script><script src="/js/moment-timezone/moment-timezone-with-data-2012-2022.min.js?v=20211126154644173" type="text/javascript"></script><script src="/js/moment/locale/ru.js?v=20211126154644173" type="text/javascript"></script>
+    <script type='text/javascript'>
+        moment.locale('ru');
+    </script>
+    
+
+    <!--[if (gte IE 9) | (!IE)]><!-->
+    <script src="/moex/dist/js/library-future.js?v=20211126154644173" type="text/javascript"></script>
+    <!--<![endif]-->
+
+    <script src="/static-content/widgets/assets/mx.widget.js?v=20211126154646173" type="text/javascript"></script><script src="/moex/dist/js/cart/jquery.enhanced.cookie.js?v=20211126154644173" type="text/javascript"></script><script src="/moex/dist/js/main.js?v=20211126154644173" type="text/javascript"></script>
+    <!--[if (gte IE 9) | (!IE)]><!-->
+    <script src="/moex/dist/js/main-future.js?v=20211126154644173" type="text/javascript"></script>
+    <!--<![endif]-->
+
+    <link href="/moex/dist/css/widget/widget.css?v=20211126154644173" rel="stylesheet" type="text/css" /><link href="/moex/dist/css/vendor.css?v=20211126154644173" rel="stylesheet" type="text/css" /><link href="/moex/dist/css/main.css?v=20211126154644173" rel="stylesheet" type="text/css" /><link href="/moex/dist/css/promo.css?v=20211126154644173" rel="stylesheet" type="text/css" /><link href="/moex/dist/css/StyleSheet.css?v=20211126154644173" rel="stylesheet" type="text/css" /><link href="/styles/Redesign.css?v=20211126154646173" rel="stylesheet" type="text/css" /><link href="/styles/redesign-all.css?v=20211126154646173" rel="stylesheet" type="text/css" /><link href="/styles/search/searchPopup.css?v=20211126154646173" rel="stylesheet" type="text/css" /><link href="/styles/redesign-market.css?v=20211126154646173" rel="stylesheet" type="text/css" /><meta name="format-detection" content="telephone=no" />
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript"> (function (m, e, t, r, i, k, a) { m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) }; m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a) })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(13220716, "init", { clickmap: true, trackLinks: true, accurateTrackBounce: true, trackHash: true }); </script>
+    <noscript>
+        <div>
+            <img src="https://mc.yandex.ru/watch/13220716" style="position: absolute; left: -9999px;" alt="" />
+        </div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+    <script>
+        window.adminConfig = {"widgets":[{"id":"10c173f0-dc0e-49d8-aff8-92eaa60004c3","type":"indices","label":{"ru":"Индексы","en":"Indices"},"defaultLinkTemplate":"https://www.moex.com/{locale}/index/{name}","defaultColumns":[{"name":"TIME","type":"time","title":{"ru":"Время","en":"Time"}},{"name":"CURRENTVALUE","type":"number","title":{"ru":"Текущее значение","en":"Current Value"},"decimals":2},{"name":"LASTCHANGEPRC","type":"diff","title":{"ru":"Изменение текущего значения к значению предыдущего торгового дня, %","en":"Change in Current Value to Previous Trading Day Value, percent"},"percent":true,"decimals":2}],"tabs":[{"id":"b6906af8-6f7b-4adc-85b8-4edba1fe805c","type":"shares","label":{"ru":"Акции","en":"Shares"},"subtabs":[{"id":"b6c4fede-3e9e-490f-aa3b-ce188d2a7183","activeInstrument":"IMOEX","engine":"stock","market":"index","instruments":[{"name":"IMOEX","boardgroup":9,"board":"SNDX","redirectLink":{"ru":"https://www.moex.com/ru/index/IMOEX","en":"https://www.moex.com/en/index/IMOEX"},"label":{"ru":"Индекс МосБиржи","en":"MOEX Russia"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"RTSI","boardgroup":9,"board":"RTSI","redirectLink":{"ru":"https://www.moex.com/ru/index/RTSI","en":"https://www.moex.com/en/index/RTSI"},"label":{"ru":"Индекс РТС","en":"RTS Index"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"MOEXBMI","boardgroup":9,"board":"SNDX","redirectLink":{"ru":"https://www.moex.com/ru/index/MOEXBMI","en":"https://www.moex.com/en/index/MOEXBMI"},"label":{"ru":"Индекс широкого рынка","en":"MOEX Broad Market"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"MOEXBC","boardgroup":9,"board":"RTSI","redirectLink":{"ru":"https://www.moex.com/ru/index/MOEXBC","en":"https://www.moex.com/en/index/MOEXBC"},"label":{"ru":"Индекс голубых фишек","en":"MOEX Blue Chip Index"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"RVI","board":"RTSI","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RVI","en":"https://www.moex.com/en/index/RVI"},"label":{"ru":"Индекс RVI","en":"Russian Volatility Index"},"title":{"ru":"Наименование индекса","en":"Index Name"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время","en":"Time"}},{"name":"CURRENTVALUE","type":"number","title":{"ru":"Текущее значение","en":"Current Value"},"decimals":2},{"name":"LASTCHANGEPRC","type":"diff","title":{"ru":"Изменение текущего значения к значению предыдущего торгового дня, %","en":"Change in Current Value to Previous Trading Day Value, percent"},"percent":true,"decimals":2}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/index/","en":"https://www.moex.com/en/index/"},"text":{"ru":"Все индексы","en":"All indices"}}}]},{"id":"e28b72b4-c5af-4d40-a1c0-89f4bb78565b","type":"bonds","label":{"ru":"Облигации","en":"Bonds"},"subtabs":[{"id":"67d32ca2-a37f-4de2-8ba2-eb248d222f6a","activeInstrument":null,"engine":"stock","market":"index","instruments":[{"name":"RGBITR","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RGBITR","en":"https://www.moex.com/en/index/RGBITR"},"label":{"ru":"RGBITR","en":"RGBITR"},"title":{"ru":"Код индекса","en":"Stock indices code"}},{"name":"RUCBITR","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUCBITR","en":"https://www.moex.com/en/index/RUCBITR"},"label":{"ru":"RUCBITR","en":"RUCBITR"},"title":{"ru":"Код индекса","en":"Stock indices code"}},{"name":"RUMBITR","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUMBITR","en":"https://www.moex.com/en/index/RUMBITR"},"label":{"ru":"RUMBITR","en":"RUMBITR"},"title":{"ru":"Код индекса","en":"Stock indices code"}},{"name":"RUCBTR3Y","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUCBTR3Y","en":"https://www.moex.com/en/index/RUCBTR3Y"},"label":{"ru":"RUCBTR3Y","en":"RUCBTR3Y"},"title":{"ru":"Код индекса","en":"Stock indices code"}},{"name":"RUCBTR5Y","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUCBTR5Y","en":"https://www.moex.com/en/index/RUCBTR5Y"},"label":{"ru":"RUCBTR5Y","en":"RUCBTR5Y"},"title":{"ru":"Код индекса","en":"Stock indices code"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время","en":"Time"}},{"name":"CURRENTVALUE","type":"number","title":{"ru":"Текущее значение","en":"Current Value"},"decimals":2},{"name":"LASTCHANGEPRC","type":"diff","title":{"ru":"Изменение текущего значения к значению предыдущего торгового дня, %","en":"Change in Current Value to Previous Trading Day Value, percent"},"percent":true,"decimals":2}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/index/","en":"https://www.moex.com/en/index/"},"text":{"ru":"Все индексы","en":"All indicies"}}}]},{"id":"c83187ad-a7f5-49a0-a731-385bc9782457","type":"multiAssets","label":{"ru":"Пенсионные","en":"Multi-Asset"},"subtabs":[{"id":"b05a1fca-45b2-4b7b-99ad-aa38dabb6e9a","engine":"stock","market":"index","instruments":[{"name":"RUPCI","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUPCI","en":"https://www.moex.com/en/index/RUPCI"},"label":{"ru":"Консервативный индекс","en":"Conservative Index"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"RUPMI","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUPMI","en":"https://www.moex.com/en/index/RUPMI"},"label":{"ru":"Сбалансированный индекс","en":"Moderate Index"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"RUPAI","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUPAI","en":"https://www.moex.com/en/index/RUPAI"},"label":{"ru":"Агрессивный индекс","en":"Agressive Index"},"title":{"ru":"Наименование индекса","en":"Index Name"}}],"columns":[{"name":"CURRENTVALUE","type":"number","title":{"ru":"Текущее значение","en":"Current Value"},"decimals":2},{"name":"LASTCHANGEPRC","type":"diff","title":{"ru":"Изменение текущего значения к значению предыдущего торгового дня, %","en":"Change in Current Value to Previous Trading Day Value, percent"},"percent":true,"decimals":2}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/index/pension/","en":"https://www.moex.com/en/index/pension/"},"text":{"ru":"Все индексы","en":"All indicies"}}}]},{"id":"277df1e7-8bce-462f-a704-a077aa6d72f7","type":"rusfar","label":{"ru":"RUSFAR","en":"RUSFAR"},"subtabs":[{"id":"f66e54d3-1c0e-4c46-a07c-73e7ce8f1276","engine":"stock","market":"index","instruments":[{"name":"RUSFAR","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUSFAR","en":"https://www.moex.com/en/index/RUSFAR"},"label":{"ru":"RUSFAR","en":"RUSFAR"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"RUSFAR1W","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUSFAR1W","en":"https://www.moex.com/en/index/RUSFAR1W"},"label":{"ru":"RUSFAR1W","en":"RUSFAR1W"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"RUSFAR2W","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUSFAR2W","en":"https://www.moex.com/en/index/RUSFAR2W"},"label":{"ru":"RUSFAR2W","en":"RUSFAR2W"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"RUSFAR1M","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUSFAR1M","en":"https://www.moex.com/en/index/RUSFAR1M"},"label":{"ru":"RUSFAR1M","en":"RUSFAR1M"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"RUSFAR3M","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUSFAR3M","en":"https://www.moex.com/en/index/RUSFAR3M"},"label":{"ru":"RUSFAR3M","en":"RUSFAR3M"},"title":{"ru":"Наименование индекса","en":"Index Name"}},{"name":"RUSFARUSD","boardgroup":9,"redirectLink":{"ru":"https://www.moex.com/ru/index/RUSFARUSD","en":"https://www.moex.com/en/index/RUSFARUSD"},"label":{"ru":"RUSFARUSD","en":"RUSFARUSD"},"title":{"ru":"Наименование индекса","en":"Index Name"}}],"columns":[{"name":"TRADEDATE","type":"date","title":{"ru":"Дата торгов","en":"Trading date"}},{"name":"TIME","type":"time","title":{"ru":"Время","en":"Time"}},{"name":"CURRENTVALUE","type":"number","title":{"ru":"Текущее значение","en":"Current Value"},"decimals":2},{"name":"LASTCHANGE","type":"diff","title":{"ru":"Изменение текущего значения к значению предыдущего торгового дня, пунктов","en":"Change in current value in regard to the previous day's value"},"decimals":2}]}]}]},{"id":"b588d3da-3904-4c12-9dd5-6883387ef015","type":"fxMetals","label":{"ru":"Валютный рынок и драгметаллы","en":"FX Market and Precious metals"},"defaultLinkTemplate":"https://www.moex.com/{locale}/issue/{name}/{board}","defaultColumns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last"}},{"name":"LAST","type":"number","title":{"ru":"Курс последней сделки","en":"Last Transaction Price, units of local currency to quoted number of units of foreign currency"}},{"name":"CHANGE","type":"diff","title":{"ru":"Изменение курса последней сделки по отношению к курсу последней сделки предыдущего торгового дня","en":"To Last Price of Previous Trading Day"}}],"tabs":[{"id":"47e87297-af08-401f-8758-32ec0b970a95","type":"spot","label":{"ru":"Спот","en":"Spot"},"subtabs":[{"id":"a659ca91-d970-42f8-b5e4-03cf87e732d6","activeInstrument":"USD000UTSTOM","engine":"currency","market":"selt","instruments":[{"name":"USD000UTSTOM","boardgroup":13,"redirectLink":{"ru":"https://www.moex.com/ru/issue/USD000UTSTOM/CETS","en":"https://www.moex.com/en/issue/USD000UTSTOM/CETS"},"board":"CETS","label":{"ru":"Доллар/рубль","en":"USD/RUB"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"EUR_RUB__TOM","boardgroup":13,"redirectLink":{"ru":"https://www.moex.com/ru/issue/EUR_RUB__TOM/CETS","en":"https://www.moex.com/en/issue/EUR_RUB__TOM/CETS"},"board":"CETS","label":{"ru":"Евро/рубль","en":"EUR/RUB"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"EURUSD000TOM","boardgroup":13,"redirectLink":{"ru":"https://www.moex.com/ru/issue/EURUSD000TOM/CETS","en":"https://www.moex.com/en/issue/EURUSD000TOM/CETS"},"board":"CETS","label":{"ru":"Евро/доллар","en":"EUR/USD"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"CNYRUB_TOM","boardgroup":13,"redirectLink":{"ru":"https://www.moex.com/ru/issue/CNYRUB_TOM/CETS","en":"https://www.moex.com/en/issue/CNYRUB_TOM/CETS"},"board":"CETS","label":{"ru":"Юань/рубль","en":"CNY/RUB"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last"}},{"name":"LAST","type":"number","title":{"ru":"Курс последней сделки","en":"Last Transaction Price, units of local currency to quoted number of units of foreign currency"}},{"name":"CHANGE","type":"diff","title":{"ru":"Изменение курса последней сделки по отношению к курсу последней сделки предыдущего торгового дня","en":"To Last Price of Previous Trading Day"}}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/markets/currency/","en":"https://www.moex.com/en/markets/currency/"},"text":{"ru":"Все котировки","en":"All currencies"}}}]},{"id":"92d4571d-5cd9-4443-8eaf-45ccfc83c9e6","type":"swap","label":{"ru":"Своп","en":"Swap"},"subtabs":[{"id":"78550b66-019e-43fd-b6e2-2d8039845926","activeInstrument":"EUR000TODTOM","engine":"currency","market":"selt","instruments":[{"name":"USD000TODTOM","boardgroup":13,"board":"CETS","redirectLink":{"ru":"https://www.moex.com/ru/issue/USD000TODTOM/CETS","en":"https://www.moex.com/en/issue/USD000TODTOM/CETS"},"label":{"ru":"USD_TODTOM","en":"USD_TODTOM"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"EUR000TODTOM","boardgroup":13,"board":"CETS","redirectLink":{"ru":"https://www.moex.com/ru/issue/EUR000TODTOM/CETS","en":"https://www.moex.com/en/issue/EUR000TODTOM/CETS"},"label":{"ru":"EUR_TODTOM","en":"EUR_TODTOM"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"EURUSDTODTOM","boardgroup":13,"board":"CETS","redirectLink":{"ru":"https://www.moex.com/ru/issue/EURUSDTODTOM/CETS","en":"https://www.moex.com/en/issue/EURUSDTODTOM/CETS"},"label":{"ru":"EURUSDTDTM","en":"EURUSDTDTM"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"USDRUB_TOM1D","boardgroup":13,"board":"CETS","redirectLink":{"ru":"https://www.moex.com/ru/issue/USDRUB_TOM1D/CETS","en":"https://www.moex.com/en/issue/USDRUB_TOM1D/CETS"},"label":{"ru":"USD_TOMSPT","en":"USD_TOMSPT"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"USDRUB_TOM1W","boardgroup":13,"board":"CETS","redirectLink":{"ru":"https://www.moex.com/ru/issue/USDRUB_TOM1W/CETS","en":"https://www.moex.com/en/issue/USDRUB_TOM1W/CETS"},"label":{"ru":"USD_TOM1W","en":"USD_TOM1W"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last"}},{"name":"LAST","type":"number","title":{"ru":"Курс последней сделки","en":"Last Transaction Price, units of local currency to quoted number of units of foreign currency"}},{"name":"CHANGE","type":"diff","title":{"ru":"Изменение курса последней сделки по отношению к курсу последней сделки предыдущего торгового дня","en":"To Last Price of Previous Trading Day"}}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/markets/currency/","en":"https://www.moex.com/en/markets/currency/"},"text":{"ru":"Все котировки","en":"All currencies"}}}]},{"id":"662b0440-32c5-4bf0-aadf-7c29e4e2b650","type":"fixing","label":{"ru":"Фиксинг","en":"Fixing"},"subtabs":[{"id":"063c06fd-18db-4ef8-9f14-67da470c1874","engine":"currency","market":"index","readonly":true,"instruments":[{"name":"USDFIX","redirectLink":{"ru":"https://www.moex.com/ru/markets/currency/get-fixing.aspx?code=USDFIXME","en":"https://www.moex.com/en/markets/currency/get-fixing.aspx?code=USDFIXME"},"label":{"ru":"USDFIX","en":"USDFIX"},"chartEnabled":false,"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"USDFIXME","redirectLink":{"ru":"https://www.moex.com/ru/markets/currency/get-fixing.aspx?code=USDFIXME","en":"https://www.moex.com/en/markets/currency/get-fixing.aspx?code=USDFIXME"},"label":{"ru":"USDFIXME","en":"USDFIXME"},"chartEnabled":false,"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"EURFIX","redirectLink":{"ru":"https://www.moex.com/ru/markets/currency/get-fixing.aspx?code=EURFIXME","en":"https://www.moex.com/en/markets/currency/get-fixing.aspx?code=EURFIXME"},"label":{"ru":"EURFIX","en":"EURFIX"},"chartEnabled":false,"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"EURFIXME","redirectLink":{"ru":"https://www.moex.com/ru/markets/currency/get-fixing.aspx?code=EURFIXME","en":"https://www.moex.com/en/markets/currency/get-fixing.aspx?code=EURFIXME"},"label":{"ru":"EURFIXME","en":"EURFIXME"},"chartEnabled":false,"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"EURUSDFIX","redirectLink":{"ru":"https://www.moex.com/ru/markets/currency/get-fixing.aspx?code=EURUSDFIXME","en":"https://www.moex.com/en/markets/currency/get-fixing.aspx?code=EURUSDFIXME"},"label":{"ru":"EURUSDFIX","en":"EURUSDFIX"},"chartEnabled":false,"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"EURUSDFIXME","redirectLink":{"ru":"https://www.moex.com/ru/markets/currency/get-fixing.aspx?code=EURUSDFIXME","en":"https://www.moex.com/en/markets/currency/get-fixing.aspx?code=EURUSDFIXME"},"label":{"ru":"EURUSDFIXME","en":"EURUSDFIXME"},"chartEnabled":false,"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"CNYFIX","redirectLink":{"ru":"https://www.moex.com/ru/markets/currency/get-fixing.aspx?code=CNYFIXME","en":"https://www.moex.com/en/markets/currency/get-fixing.aspx?code=CNYFIXME"},"label":{"ru":"CNYFIX","en":"CNYFIX"},"chartEnabled":false,"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"CNYFIXME","redirectLink":{"ru":"https://www.moex.com/ru/markets/currency/get-fixing.aspx?code=CNYFIXME","en":"https://www.moex.com/en/markets/currency/get-fixing.aspx?code=CNYFIXME"},"label":{"ru":"CNYFIXME","en":"CNYFIXME"},"chartEnabled":false,"title":{"ru":"Наименование инструмента","en":"Instrument Name"}}],"columns":[{"name":"TRADEDATE","type":"date","title":{"ru":"Дата последнего обновления","en":"Date of Last Updating"}},{"name":"TIME","type":"time","title":{"ru":"Время последнего обновления","en":"Time of Last Updating"}},{"name":"CURRENTVALUE","type":"number","title":{"ru":"Значение курса","en":"FX fixing Curr"}}]}]},{"id":"851fab06-1e22-4f0a-97bb-7673244b3de7","type":"preciousMetals","label":{"ru":"Драгметаллы","en":"Precious metals"},"subtabs":[{"id":"25f3c247-75c5-478a-9a01-6dc8acb78e3f","engine":"currency","market":"selt","instruments":[{"name":"GLDRUB_TOM","boardgroup":13,"redirectLink":{"ru":"https://www.moex.com/ru/issue/GLDRUB_TOM/CETS","en":"https://www.moex.com/ru/issue/GLDRUB_TOM/CETS"},"board":"CETS","label":{"ru":"GLDRUB_TOM","en":"GLDRUB_TOM"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"SLVRUB_TOM","boardgroup":13,"redirectLink":{"ru":"https://www.moex.com/ru/issue/SLVRUB_TOM/CETS","en":"https://www.moex.com/ru/issue/SLVRUB_TOM/CETS"},"board":"CETS","label":{"ru":"SLVRUB_TOM","en":"SLVRUB_TOM"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last"}},{"name":"LAST","type":"number","title":{"ru":"Курс последней сделки","en":"Last Transaction Price, units of local currency to quoted number of units of foreign currency"}},{"name":"CHANGE","type":"diff","title":{"ru":"Изменение курса последней сделки по отношению к курсу последней сделки предыдущего торгового дня","en":"To Last Price of Previous Trading Day"}}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/markets/commodity/","en":"https://www.moex.com/en/markets/commodity/"},"text":{"ru":"Все котировки","en":"All currencies"}}}]}]},{"id":"cfbe387d-9fb5-4d63-8390-74f0e2879cfb","type":"securities","label":{"ru":"Фондовый рынок","en":"Securities Market"},"defaultLinkTemplate":"https://www.moex.com/{locale}/issue.aspx?board={board}&code={name}","defaultColumns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last Transaction"}},{"name":"LAST","type":"number","title":{"ru":"Цена последней сделки","en":"Last Transaction Price, roubles"}},{"name":"LASTTOPREVPRICE","type":"diff","percent":true,"title":{"ru":"Изменение цены последней сделки к последней цене предыдущего торгового дня,%","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"},"decimals":2}],"tabs":[{"id":"79cdb213-2e76-4865-bbac-7356fa610f19","type":"stocks","label":{"ru":"Акции","en":"Stocks"},"subtabs":[{"id":"db3ec20f-35eb-4a1f-a8c7-7c4b8bb92187","engine":"stock","market":"shares","instruments":[{"name":"MOEX","boardgroup":57,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQBR&code=MOEX","en":"https://www.moex.com/en/issue.aspx?board=TQBR&code=MOEX"},"board":"TQBR","label":{"ru":"Мосбиржа","en":"MoscowExchange"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"SBER","boardgroup":57,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQBR&code=SBER","en":"https://www.moex.com/en/issue.aspx?board=TQBR&code=SBER"},"board":"TQBR","label":{"ru":"Сбербанк","en":"Sberbank"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"GMKN","boardgroup":57,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQBR&code=GMKN","en":"https://www.moex.com/en/issue.aspx?board=TQBR&code=GMKN"},"board":"TQBR","label":{"ru":"Норникель","en":"Nornickel"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"GAZP","boardgroup":57,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQBR&code=GAZP","en":"https://www.moex.com/en/issue.aspx?board=TQBR&code=GAZP"},"board":"TQBR","label":{"ru":"Газпром","en":"Gazprom"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"LKOH","boardgroup":57,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQBR&code=LKOH","en":"https://www.moex.com/en/issue.aspx?board=TQBR&code=LKOH"},"board":"TQBR","label":{"ru":"ЛУКОЙЛ","en":"LUKOIL"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"PLZL","board":"TQBR","boardgroup":57,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQBR&code=PLZL","en":"https://www.moex.com/en/issue.aspx?board=TQBR&code=PLZL"},"shift":0,"label":{"ru":"Полюс","en":"Polus"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"MGNT","board":"TQBR","boardgroup":57,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQBR&code=MGNT","en":"https://www.moex.com/en/issue.aspx?board=TQBR&code=MGNT"},"shift":0,"label":{"ru":"Магнит","en":"Magnit"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"YNDX","boardgroup":57,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQBR&code=YNDX","en":"https://www.moex.com/en/issue.aspx?board=TQBR&code=YNDX"},"board":"TQBR","label":{"ru":"Яндекс","en":"Yandex"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"MTSS","boardgroup":57,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQBR&code=MTSS","en":"https://www.moex.com/en/issue.aspx?board=TQBR&code=MTSS"},"board":"TQBR","label":{"ru":"МТС","en":"MTS"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"MAIL","board":"TQBR","boardgroup":57,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQBR&code=MAIL","en":"https://www.moex.com/en/issue.aspx?board=TQBR&code=MAIL"},"shift":0,"label":{"ru":"Mail.ru                  ","en":"Mail.ru"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last Transaction"}},{"name":"LAST","type":"number","title":{"ru":"Цена последней сделки","en":"Last Transaction Price, roubles"}},{"name":"LASTTOPREVPRICE","type":"diff","percent":true,"title":{"ru":"Изменение цены последней сделки к последней цене предыдущего торгового дня,%","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"},"decimals":2}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/marketdata/#/group=4&collection=3&boardgroup=57&data_type=current&mode=groups&sort=SHORTNAME&order=asc","en":"https://www.moex.com/en/marketdata/#/group=4&collection=3&boardgroup=57&data_type=current&mode=groups&sort=SHORTNAME&order=asc"},"text":{"ru":"Все инструменты","en":"All securities"}},"activeInstrument":null}]},{"id":"7712a954-07d3-4552-b47a-69c60e3884dd","type":"custom-tab-7712a954-07d3-4552-b47a-69c60e3884dd","label":{"ru":"Global","en":"Global"},"subtabs":[{"id":"808adf49-3358-49be-92a6-b09ae80e4602","engine":"stock","market":"foreignshares","instruments":[{"name":"AAPL-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=AAPL-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=AAPL-RM"},"shift":0,"label":{"ru":"Apple","en":"Apple"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"AMZN-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=AMZN-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=AMZN-RM"},"shift":0,"label":{"ru":"Amazon","en":"Amazon"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"NVDA-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=NVDA-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=NVDA-RM"},"shift":0,"label":{"ru":"NVIDIA","en":"NVIDIA"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"FB-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=FB-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=FB-RM"},"shift":0,"label":{"ru":"Facebook","en":"Facebook"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"MSFT-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=MSFT-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=MSFT-RM"},"shift":0,"label":{"ru":"Microsoft","en":"Microsoft"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"MCD-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=MCD-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=MCD-RM"},"shift":0,"label":{"ru":"McDonald's","en":"McDonald's"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"V-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=V-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=V-RM"},"shift":0,"label":{"ru":"VISA","en":"VISA"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"INTC-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=INTC-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=INTC-RM"},"shift":0,"label":{"ru":"Intel","en":"Intel"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"GOOG-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=GOOG-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=GOOG-RM"},"shift":0,"label":{"ru":"Alphabet","en":"Alphabet"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"DIS-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=DIS-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=DIS-RM"},"shift":0,"label":{"ru":"Disney","en":"Disney"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"NFLX-RM","board":"FQBR","boardgroup":265,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=FQBR&code=NFLX-RM","en":"https://www.moex.com/en/issue.aspx?board=FQBR&code=NFLX-RM"},"shift":0,"label":{"ru":"Netflix","en":"Netflix"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last Transaction"},"decimals":"2","percent":true},{"name":"LAST","type":"number","title":{"ru":"Цена последней сделки","en":"Last Transaction Price, roubles"}},{"name":"LASTTOPREVPRICE","type":"diff","percent":true,"title":{"ru":"Изменение цены последней сделки к последней цене предыдущего торгового дня,%","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"},"decimals":2}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/marketdata/#/group=33&collection=301&boardgroup=265&data_type=current&mode=groups&sort=SHORTNAME&order=asc","en":"https://www.moex.com/en/marketdata/#/group=33&collection=301&boardgroup=265&data_type=current&mode=groups&sort=SHORTNAME&order=asc"},"text":{"ru":"Все акции","en":"All  stocks"}}}]},{"id":"867aec8e-e945-483c-8840-4ec55c68365b","type":"ofz","label":{"ru":"ОФЗ","en":"OFZ"},"subtabs":[{"id":"7bfccbaf-a140-4a90-81e7-76014f670273","engine":"stock","market":"bonds","instruments":[{"name":"SU26215RMFS2","chartEnabled":false,"board":"TQOB","redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQOB&code=SU26215RMFS2","en":"https://www.moex.com/en/issue.aspx?board=TQOB&code=SU26215RMFS2"},"label":{"ru":"ОФЗ 26215","en":"OFZ-PD 26215"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"SU26207RMFS9","chartEnabled":false,"board":"TQOB","redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQOB&code=SU26207RMFS9","en":"https://www.moex.com/en/issue.aspx?board=TQOB&code=SU26207RMFS9"},"label":{"ru":"ОФЗ 26207","en":"OFZ-PD 26207"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"SU26221RMFS0","chartEnabled":false,"board":"TQOB","redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQOB&code=SU26221RMFS0","en":"https://www.moex.com/en/issue.aspx?board=TQOB&code=SU26221RMFS0"},"label":{"ru":"ОФЗ 26221","en":"OFZ-PD 26221"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"SU26218RMFS6","chartEnabled":false,"board":"TQOB","redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQOB&code=SU26218RMFS6","en":"https://www.moex.com/en/issue.aspx?board=TQOB&code=SU26218RMFS6"},"label":{"ru":"ОФЗ 26218","en":"OFZ-PD 26218"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время последней сделки","en":"Time of Last Transaction"}},{"name":"DURATION","type":"number","title":{"ru":"Дюрация, дней","en":"Duration, days"},"decimals":0},{"name":"YIELD","type":"number","percent":true,"title":{"ru":"Доходность по последней сделке, %","en":"Yield based on Last Transaction Price"},"decimals":2},{"name":"LAST","type":"number","title":{"ru":"Цена последней сделки","en":"Last Transaction Price, percent of face value"}},{"name":"LASTCHANGE","type":"diff","title":{"ru":"Изменение цены последней сделки к цене последней сделки предыдущего торгового дня","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day (Change of Last to Previous Day Last), RUB"}}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/marketdata/#/group=4&collection=3&boardgroup=57&data_type=current&mode=groups&sort=SHORTNAME&order=asc","en":"https://www.moex.com/en/marketdata/#/group=4&collection=3&boardgroup=57&data_type=current&mode=groups&sort=SHORTNAME&order=asc"},"text":{"ru":"Все инструменты","en":"All securities"}}}]},{"id":"d0c94f5b-0d7d-462e-9b67-4d68a126a0e6","type":"eurobonds","label":{"ru":"Еврооблигации","en":"Eurobonds"},"subtabs":[{"id":"64f2258c-570c-4287-86c5-ad309223b2f4","activeInstrument":null,"engine":"stock","market":"bonds","instruments":[{"name":"XS0088543193","boardgroup":193,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQOD&code=XS0088543193","en":"https://www.moex.com/en/issue.aspx?board=TQOD&code=XS0088543193"},"board":"TQOD","label":{"ru":"RUS-28","en":"RUS-28"},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"XS2131995958","board":"TQOD","boardgroup":193,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQOD&code=XS2131995958","en":"https://www.moex.com/en/issue.aspx?board=TQOD&code=XS2131995958"},"shift":0,"label":{"ru":"GTLK-27","en":"GTLK-27"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}},{"name":"XS0191754729","boardgroup":193,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQOD&code=XS0191754729","en":"https://www.moex.com/en/issue.aspx?board=TQOD&code=XS0191754729"},"board":"TQOD","label":{"ru":"GAZPR-34","en":"GAZ CAPITAL "},"title":{"ru":"Краткое наименование ценной бумаги","en":"Security Short Name"}},{"name":"XS2159874002","board":"TQOD","boardgroup":193,"redirectLink":{"ru":"https://www.moex.com/ru/issue.aspx?board=TQOD&code=XS2159874002","en":"https://www.moex.com/en/issue.aspx?board=TQOD&code=XS2159874002"},"shift":0,"label":{"ru":"LUK-30","en":"LUK-30"},"title":{"ru":"Наименование инструмента","en":"Instrument Name"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время последней сделки","en":"Time of Last Transaction"}},{"name":"YIELD","type":"number","percent":true,"title":{"ru":"Доходность по последней сделке, %","en":"Yield based on Last Transaction Price"},"decimals":2},{"name":"LAST","type":"number","title":{"ru":"Цена последней сделки","en":"Last Transaction Price, percent of face value"}},{"name":"LASTCHANGE","type":"diff","title":{"ru":"Изменение цены последней сделки к цене последней сделки предыдущего торгового дня","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"}}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/marketdata/#/group=4&collection=3&boardgroup=57&data_type=current&mode=groups&sort=SHORTNAME&order=asc","en":"https://www.moex.com/en/marketdata/#/group=4&collection=3&boardgroup=57&data_type=current&mode=groups&sort=SHORTNAME&order=asc"},"text":{"ru":"Все инструменты","en":"All securities"}}}]}]},{"id":"c3d43c71-973a-4c49-a7a2-26b86bd3b24d","type":"derivatives","label":{"ru":"Срочный рынок","en":"Derivatives Market"},"defaultLinkTemplate":"https://www.moex.com/{locale}/contract.aspx?code={name}","defaultColumns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last Transaction"}},{"name":"LAST","type":"number","title":{"ru":"Курс последней сделки","en":"Last transaction price, rubles"}},{"name":"LASTTOPREVPRICE","type":"diff","title":{"ru":"Изменение цены последней сделки к последней цене предыдущего дня, %","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"},"decimals":2}],"tabs":[{"id":"c2381b11-ad40-4916-958e-d75f37cfde4f","type":"indicesAndStocks","label":{"ru":"Фондовый","en":"Indices & Stocks"},"subtabs":[{"type":"current","id":"9e792d6b-84d8-4da5-ac54-a90697be8f12","label":{"ru":"Текущая","en":"Current"},"activeInstrument":null,"engine":"futures","market":"forts","synchronize":[{"subtabType":"previous","actions":{"delete":true,"create":{"issParams":[{"key":"previous_session","value":1}]}}}],"issParams":[{"key":"previous_session","value":0}],"instruments":[{"name":"RIU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=RIU1","en":"https://www.moex.com/en/contract.aspx?code=RIU1"},"label":{"ru":"RTS-9.21","en":"RTS-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"MXU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=MXU1","en":"https://www.moex.com/en/contract.aspx?code=MXU1"},"label":{"ru":"MIX-9.21","en":"MIX-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"MMU1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=MMU1","en":"https://www.moex.com/en/contract.aspx?code=MMU1"},"label":{"ru":"MXI-9.21","en":"MXI-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"SRU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=SRU1","en":"https://www.moex.com/en/contract.aspx?code=SRU1"},"label":{"ru":"SBRF-9.21","en":"SBRF-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"GZU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=GZU1","en":"https://www.moex.com/en/contract.aspx?code=GZU1"},"label":{"ru":"GAZR-9.21","en":"GAZR-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"VBU1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=VBU1","en":"https://www.moex.com/en/contract.aspx?code=VBU1"},"label":{"ru":"VTBR-9.21","en":"VTBR-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"SFU1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=SFU1","en":"https://www.moex.com/en/contract.aspx?code=SFU1"},"shift":"0","label":{"ru":"SPYF-9.21","en":"SPYF-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last Transaction"}},{"name":"LAST","type":"number","title":{"ru":"Цена последней сделки","en":"Last transaction price, rubles"}},{"name":"LASTTOPREVPRICE","type":"diff","decimals":2,"title":{"ru":"Изменение цены последней сделки к последней цене предыдущего торгового дня,%","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"},"percent":true}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc","en":"https://www.moex.com/en/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc"},"text":{"ru":"Все контракты","en":"All contracts"}}},{"type":"previous","id":"2c6c823b-cd5b-47ac-b8b4-5f6029786338","label":{"ru":"Предыдущая","en":"Previous"},"readonly":true,"engine":"futures","market":"forts","issParams":[{"key":"previous_session","value":1}],"instruments":[{"name":"RIU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=RIU1","en":"https://www.moex.com/en/contract.aspx?code=RIU1"},"label":{"ru":"RTS-9.21","en":"RTS-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"MXU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=MXU1","en":"https://www.moex.com/en/contract.aspx?code=MXU1"},"label":{"ru":"MIX-9.21","en":"MIX-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"MMU1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=MMU1","en":"https://www.moex.com/en/contract.aspx?code=MMU1"},"label":{"ru":"MXI-9.21","en":"MXI-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"},"onlyLocale":"ru","issParams":[{"key":"previous_session","value":1}]},{"name":"SRU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=SRU1","en":"https://www.moex.com/en/contract.aspx?code=SRU1"},"label":{"ru":"SBRF-9.21","en":"SBRF-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"GZU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=GZU1","en":"https://www.moex.com/en/contract.aspx?code=GZU1"},"label":{"ru":"GAZR-9.21","en":"GAZR-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"VBU1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=VBU1","en":"https://www.moex.com/en/contract.aspx?code=VBU1"},"label":{"ru":"VTBR-9.21","en":"VTBR-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"},"onlyLocale":"ru","issParams":[{"key":"previous_session","value":1}]},{"name":"SFU1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=SFU1","en":"https://www.moex.com/en/contract.aspx?code=SFU1"},"shift":"0","label":{"ru":"SPYF-9.21","en":"SPYF-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"},"onlyLocale":"ru","issParams":[{"key":"previous_session","value":1}]},{"name":"SFU1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=SFU1","en":"https://www.moex.com/en/contract.aspx?code=SFU1"},"shift":"0","label":{"ru":"SPYF-9.21","en":"SPYF-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"},"onlyLocale":"en","issParams":[{"key":"previous_session","value":1}]}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last Transaction"}},{"name":"LAST","type":"number","title":{"ru":"Курс последней сделки","en":"Last transaction price, rubles"}},{"name":"LASTTOPREVPRICE","type":"diff","decimals":2,"title":{"ru":"Изменение курса последней сделки по отношению к курсу последней сделки предыдущего торгового дня","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"}}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc","en":"https://www.moex.com/en/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc"},"text":{"ru":"Все контракты","en":"All contracts"}}}]},{"id":"b0722882-8525-4ebe-94ee-3cdf6263922e","type":"commodities","label":{"ru":"Товарный","en":"Commodities"},"subtabs":[{"type":"current","id":"79ae0189-8aea-4d7d-b48b-3a68110da525","label":{"ru":"Текущая","en":"Current"},"activeInstrument":"SVZ9","engine":"futures","market":"forts","synchronize":[{"subtabType":"previous","actions":{"delete":true,"create":{"issParams":[{"key":"previous_session","value":1}]}}}],"issParams":[{"key":"previous_session","value":0}],"instruments":[{"name":"BRQ1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=BRQ1","en":"https://www.moex.com/en/contract.aspx?code=BRQ1"},"label":{"ru":"BR-8.21","en":"BR-8.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"CLN1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=CLN1","en":"https://www.moex.com/en/contract.aspx?code=CLN1"},"label":{"ru":"CL-7.21","en":"CL-7.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"NGN1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=NGN1","en":"https://www.moex.com/en/contract.aspx?code=NGN1"},"label":{"ru":"NG-7.21","en":"NG-7.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"},"onlyLocale":"ru"},{"name":"GDU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=GDU1","en":"https://www.moex.com/en/contract.aspx?code=GDU1"},"label":{"ru":"GOLD-9.21","en":"GOLD-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"SVU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=SVU1","en":"https://www.moex.com/en/contract.aspx?code=SVU1"},"label":{"ru":"SILV-9.21","en":"SILV-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"PTU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=PTU1","en":"https://www.moex.com/en/contract.aspx?code=PTU1"},"label":{"ru":"PLT-9.21","en":"PLT-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last Transaction"}},{"name":"LAST","type":"number","title":{"ru":"Цена последней сделки","en":"Last transaction price, rubles"}},{"name":"LASTTOPREVPRICE","type":"diff","decimals":2,"title":{"ru":"Изменение цены последней сделки к последней цене предыдущего торгового дня,%","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"},"percent":true}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc","en":"https://www.moex.com/en/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc"},"text":{"ru":"Все контракты","en":"All contracts"}}},{"type":"previous","id":"1cfa827f-0a26-4d18-806e-409ba53a1ef7","label":{"ru":"Предыдущая","en":"Previous"},"engine":"futures","market":"forts","readonly":true,"issParams":[{"key":"previous_session","value":1}],"instruments":[{"name":"BRQ1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=BRQ1","en":"https://www.moex.com/en/contract.aspx?code=BRQ1"},"label":{"ru":"BR-8.21","en":"BR-8.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"CLN1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=CLN1","en":"https://www.moex.com/en/contract.aspx?code=CLN1"},"label":{"ru":"CL-7.21","en":"CL-7.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"NGN1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=NGN1","en":"https://www.moex.com/en/contract.aspx?code=NGN1"},"label":{"ru":"NG-7.21","en":"NG-7.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"},"onlyLocale":"ru","issParams":[{"key":"previous_session","value":1}]},{"name":"GDU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=GDU1","en":"https://www.moex.com/en/contract.aspx?code=GDU1"},"label":{"ru":"GOLD-9.21","en":"GOLD-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"SVU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=SVU1","en":"https://www.moex.com/en/contract.aspx?code=SVU1"},"label":{"ru":"SILV-9.21","en":"SILV-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"PTU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=PTU1","en":"https://www.moex.com/en/contract.aspx?code=PTU1"},"label":{"ru":"PLT-9.21","en":"PLT-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last Transaction"}},{"name":"LAST","type":"number","title":{"ru":"Курс последней сделки","en":"Last transaction price, rubles"}},{"name":"LASTTOPREVPRICE","type":"diff","decimals":2,"title":{"ru":"Изменение курса последней сделки по отношению к курсу последней сделки предыдущего торгового дня","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"}}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc","en":"https://www.moex.com/en/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc"},"text":{"ru":"Все контракты","en":"All contracts"}}}]},{"id":"f30f1a2c-e725-497d-b164-0a146a840a89","type":"fxAndRates","label":{"ru":"Денежный","en":"FX & Rates"},"subtabs":[{"type":"current","id":"774fd02f-70ae-40e1-9b86-ded81d8558a9","label":{"ru":"Текущая","en":"Current"},"activeInstrument":"EuZ9","engine":"futures","market":"forts","synchronize":[{"subtabType":"previous","actions":{"delete":true,"create":{"issParams":[{"key":"previous_session","value":1}]}}}],"issParams":[{"key":"previous_session","value":0}],"instruments":[{"name":"SiU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=SiU1","en":"https://www.moex.com/en/contract.aspx?code=SiU1"},"label":{"ru":"Si-9.21","en":"Si-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"EDU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=EDU1","en":"https://www.moex.com/en/contract.aspx?code=EDU1"},"label":{"ru":"ED-9.21","en":"ED-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"EuU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=EuU1","en":"https://www.moex.com/en/contract.aspx?code=EuU1"},"label":{"ru":"Eu-9.21","en":"Eu-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"OVU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=OVU1","en":"https://www.moex.com/en/contract.aspx?code=OVU1"},"label":{"ru":"OF15-9.21","en":"OF15-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"MFN1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=MFN1","en":"https://www.moex.com/en/contract.aspx?code=MFN1"},"label":{"ru":"1MFR-7.21","en":"1MFR-7.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"},"onlyLocale":"ru"}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last Transaction"}},{"name":"LAST","type":"number","title":{"ru":"Цена последней сделки","en":"Last transaction price, rubles"}},{"name":"LASTTOPREVPRICE","type":"diff","decimals":2,"title":{"ru":"Изменение цены последней сделки к последней цене предыдущего торгового дня,%","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"},"percent":true}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc","en":"https://www.moex.com/en/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc"},"text":{"ru":"Все контракты","en":"All contracts"}}},{"type":"previous","id":"724aa8c6-2e69-4217-b25b-112df7bd2589","label":{"ru":"Предыдущая","en":"Previous"},"engine":"futures","market":"forts","readonly":true,"issParams":[{"key":"previous_session","value":1}],"instruments":[{"name":"SiU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=SiU1","en":"https://www.moex.com/en/contract.aspx?code=SiU1"},"label":{"ru":"Si-9.21","en":"Si-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"EDU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=EDU1","en":"https://www.moex.com/en/contract.aspx?code=EDU1"},"label":{"ru":"ED-9.21","en":"ED-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"EuU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=EuU1","en":"https://www.moex.com/en/contract.aspx?code=EuU1"},"label":{"ru":"Eu-9.21","en":"Eu-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"OVU1","boardgroup":45,"board":"RFUD","redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=OVU1","en":"https://www.moex.com/en/contract.aspx?code=OVU1"},"label":{"ru":"OF15-9.21","en":"OF15-9.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"}},{"name":"MFN1","board":"RFUD","boardgroup":45,"redirectLink":{"ru":"https://www.moex.com/ru/contract.aspx?code=MFN1","en":"https://www.moex.com/en/contract.aspx?code=MFN1"},"label":{"ru":"1MFR-7.21","en":"1MFR-7.21"},"title":{"ru":"Серия срочного инструмента","en":"Derivatives series"},"onlyLocale":"ru","issParams":[{"key":"previous_session","value":1}]}],"columns":[{"name":"TIME","type":"time","title":{"ru":"Время заключения последней сделки","en":"Time of Last Transaction"}},{"name":"LAST","type":"number","title":{"ru":"Курс последней сделки","en":"Last transaction price, rubles"}},{"name":"LASTTOPREVPRICE","type":"diff","decimals":2,"title":{"ru":"Изменение курса последней сделки по отношению к курсу последней сделки предыдущего торгового дня","en":"Change of Last Transaction Price to Last Transaction Price of Previous Trading Day, percent"}}],"allInstrumentsInfo":{"link":{"ru":"https://www.moex.com/ru/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc","en":"https://www.moex.com/en/marketdata/#/group=10&collection=227&boardgroup=45&data_type=current&mode=groups&sort=VALTODAY&order=desc"},"text":{"ru":"Все контракты","en":"All contracts"}}}]}]}]};
+        
+    </script>
+    <link href="/mxassets/widgets/moex-chart-widgets.css?v=20211126154644173" rel="stylesheet" type="text/css" />
+    <script src="/mxassets/widgets/moex-chart-widgets.umd.min.js?v=20211126154644173" type="text/javascript"></script>
+
+    <div class="floatHeader">
+        <a href="javascript:void(0)" class="header-content-bottom__menu-button floatHeader-menu-button"></a>        
+            
+            <a href="/" class="header-content-bottom__logo-outer"><img src="/images/logo.gif" alt="Московская биржа" width="167" class="header-content-bottom__logo"></a>
+        
+
+        <span id="header-time_pc_float" class="header-time"></span>
+
+        <div class="floatHeaderSocials">
+            <a href="https://www.facebook.com/MSKExchange" target="_blank" class="_fb socials__itemFloatHeader"></a>
+            <a href="https://vk.com/moscow_exchange" target="_blank" class="_vk socials__itemFloatHeader"></a>
+            <a href="https://twitter.com/moscow_exchange" target="_blank" class="_tw socials__itemFloatHeader"></a>
+            <a href="https://www.youtube.com/user/RTSexchange" target="_blank" class="_yt socials__itemFloatHeader"></a>
+            <a href="https://instagram.com/moscow_exchange/" target="_blank" class="_ig socials__itemFloatHeader"></a>
+            <a href="http://habrahabr.ru/company/moex/blog/" target="_blank" class="_hb socials__itemFloatHeader"></a>
+            <a href="https://t.me/MoscowExchangeOfficial" target="_blank" class="_te socials__itemFloatHeader"></a>
+        </div>
+
+         <a class="floatHeaderFeedback" href="/ru/feedback.aspx">
+                                                <img src="https://fs.moex.com/f/7062/feedback-icon.png">
+                                            </a>
+    </div>
+
+    <!-- En-disclaimer -->
+    <div id="disclaimer-modal" tabindex="-1" role="dialog" class="modal _disclaimer gf-en"></div>
+    <!-- /En-disclaimer -->
+    <div class="page">
+        <div class="page__old-browser-alert">
+            <div class="old-browser-alert">
+                <div class="container">
+                </div>
+            </div>
+        </div>
+        <!-- header -->
+        <div class="page__header">
+            <div class="header">
+                <div class="container">
+                    <div class="header__inner">
+                        <div class="header__top">
+                            <a href="/" class="header__logo-outer"><img src="/images/logo.gif" width="215" height="51" alt="Московская биржа" class="header__logo" /></a>
+                            <div class="header__content header-content">
+                                <div class="header-content__top header-content-top">
+                                    <a href="/en" class="header-content-top__lang header-content-lang hidden-lg"><img src="/images/flag-en-mobile.png" alt="English" class="header-content-lang__icon" /><span class="header-content-lang__text">EN</span></a>
+                                    <div class="header-content-top__date hidden-lg">
+                                        <span id="header-time_mobile" class="header-time"></span>
+                                        <span id="header-time_mobile_small" class="header-time"></span>
+                                    </div>
+                                    <div class="header-content-top__phones header-content-phones hidden-lg hidden-xs"><span class="header-content-phones__icon"></span><span class="header-content-phones__item">+7 (495) 232-3363</span><span class="header-content-phones__item">+7 (495) 363-3232</span></div>
+                                    <div class="header-content-top__links visible-lg-inline-block">
+                                        <div class="header-links">
+                                            <span class="header-links__item"><a href="/s10">О&nbsp;бирже</a></span><span class="header-links__item"><a href="/s565/">Акционерам</a></span><span class="header-links__item"><a href="/ru/news">Пресс-центр</a></span><span class="header-links__item"><a href="/ru/events/">Мероприятия</a></span><span class="header-links__item"><a href="https://career.moex.com" target="_blank">Карьера</a></span><span class="header-links__item"><a href="https://cabinet.moex.com/about">Личный кабинет</a></span>
+                                        </div>
+                                    </div>
+                                    <div class="header-content-top__links">
+                                        <div class="header-links ">
+                                            <div id="auth-main" class="floatHeaderPassport">
+                                                <div class="mx-passport" id="auth"></div>
+                                            </div>
+                                            <span class="header-links__item _cart">
+                                                <div class="js-subscribe-cart"></div>
+                                            </span>
+                                        </div>
+                                        <script src="/js/main-auth.js?v=20211126154642173" type="text/javascript"></script>
+                                        <script src="/js/jquery.ba-outside-events.min.js?v=20211126154642173" type="text/javascript"></script>
+                                        <script> authSet("ru", "%2f"); </script>
+                                    </div>
+                                </div>
+                                <div class="header-content__bottom header-content-bottom js-adaptive-menu">
+                                    <a href="javascript:void(0)" class="header-content-bottom__menu-button hidden-lg js-adaptive-menu-button"></a><a href="/" class="header-content-bottom__logo-outer hidden-lg"><img src="/images/logo.gif" alt="Московская биржа" width="167" class="header-content-bottom__logo" /></a>
+                                    <div class="header-content-bottom__date visible-lg-inline-block">
+                                        <div class="headerdate">
+                                            <span id="header-time_pc" class="header-time"></span>
+                                            <script type="text/javascript">
+                                                (function () {
+                                                    $.ajax({
+                                                        url: '/api/v1/current-time',
+                                                        success: function (response) {
+                                                            var serverTime = moment(response.utc)
+                                                                .utcOffset(response.serverUtcOffsetInMinutes);
+
+                                                            var timePcElement = document.getElementById('header-time_pc');
+                                                            timePcElement.innerHTML = serverTime.format('dddd, DD.MM.YYYY HH:mm');
+
+                                                            timePcElement = document.getElementById('header-time_pc_float');
+                                                            timePcElement.innerHTML = serverTime.format('dddd, DD.MM.YYYY HH:mm');
+
+                                                            var timeMobileElement = document.getElementById('header-time_mobile');
+                                                            timeMobileElement.innerHTML = serverTime.format('ddd, DD.MM.YYYY HH:mm');
+
+                                                            var timeMobileSmallElement = document.getElementById('header-time_mobile_small');
+                                                            timeMobileSmallElement.innerHTML = serverTime.format('ddd, HH:mm');
+                                                        },
+                                                        error: function (jqXHR, textStatus, errorThrown) {
+
+                                                        }
+                                                    });
+                                                }());
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="header-content-bottom__phones visible-lg-inline-block">
+                                        <div class="header-content-bottom__phone">+7 (495) 232-3363</div>
+                                        <div class="header-content-bottom__phone">
+                                            +7 (495) 363-3232
+                                            <a class="feedback-icon" href="/ru/feedback.aspx">
+                                                <img src="https://fs.moex.com/f/7062/feedback-icon.png">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+
+<script src="/js/Search.js?63773725267" type="text/javascript"></script>
+
+<div class="header-content-bottom__search">
+    <div class="search-field js-search">
+        <div class="search-field__box">
+            <div class="search-field__icon"></div>
+            <input autocomplete="off" type="text" placeholder="Поиск" name="searchString" class="search-field__control js-search-control" />
+        </div>
+        <div class="search-field__results js-search-results">
+            <div class="search-results">
+                 <div style="width: 100%;">
+                    <div id="hintsContainer" class="hintsContainer" style=""></div>
+                    <div style="clear: both"></div>
+                 </div>
+                <div class="search-results__header">
+                    <a href="/Search.asmx/IssuesListSearch" id="nanoIssues" class="search-results__tab search-results__tab_full_margin search-results__tab_issues is-active">Инструменты</a>
+                    <a href="/Search.asmx/NewsListSearch" id="nanoNews" class="search-results__tab search-results__tab_news is-active">Новости</a>
+                    <a href="" baseUrl="/search.aspx?mode=and&isnews=1&sstr=" title="Расширенный поиск по новостям" class="search_results_tab_advanced_search"><img src="/images/icons/adv_search.png"/></a>
+                    <a href="http://moex.com/iss/securities.jsonp" id="nanoMaterials" class="search-results__tab search-results__tab_materials is-active">Материалы</a>
+                    <a href="" baseUrl="/search.aspx?mode=and&ismaterials=1&sstr=" title="Расширенный поиск по материалам" class="search_results_tab_advanced_search"><img src="/images/icons/adv_search.png"/></a>
+                    
+                    <a href="/Search.asmx/DocumentsListSearch" id="nanoDocuments" class="search-results__tab search-results__tab_documents is-active">Документы</a>
+                    <a href="" baseUrl="/search.aspx?mode=and&isdocuments=1&sstr=" title="Расширенный поиск по документам" class="search_results_tab_advanced_search"><img src="/images/icons/adv_search.png"/></a>
+                    
+                    <a href="/Search.asmx/EventListSearch" id="nanoEvents" class="search-results__tab search-results__tab_events is-active">Мероприятия</a>
+                        <a href="" baseUrl="/search.aspx?mode=and&isevents=1&sstr=" title="Расширенный поиск по мероприятиям" class="search_results_tab_advanced_search"><img src="/images/icons/adv_search.png"/></a>
+                    
+                </div>
+                <div class="search-results__content nano nano_scroll-outside">
+                    <div class="nano-content">
+                        <div id="search-output">
+                            <div id="search-message"></div>
+                            <div id="issuesSearchContainer" data-search-link-category-name="Инструменты" style="display:none"></div>
+                            <div id="newsSearchContainer" data-search-page-category="isnews" data-search-link-category-name="Новостям" style="display:none"></div>
+                            <div id="materialsSearchContainer" data-search-page-category="ismaterials" data-search-link-category-name="Материалам" style="display:none"></div>
+                            <div id="documentsSearchContainer" data-search-page-category="isdocuments" data-search-link-category-name="Документам" style="display:none"></div>
+                            
+                            <div id="eventsSearchContainer" data-search-page-category="isevents" data-search-link-category-name="Мероприятиям" style="display:none"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="search-results__loader__container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+                                    <div class="header-content-bottom__menu header-content-bottom-menu hidden-lg js-adaptive-menu-content floatHeaderMobileMenu">
+                                        
+                                        <div class='header-content-bottom-menu__horizontal'>
+                                            <span class="header-content-bottom-menu__horizontal-item_0"><a href="/s10">О&nbsp;бирже</a></span><span class="header-content-bottom-menu__horizontal-item_1"><a href="/s565/">Акционерам</a></span><span class="header-content-bottom-menu__horizontal-item_2"><a href="/ru/news">Пресс-центр</a></span><span class="header-content-bottom-menu__horizontal-item_3"><a href="/ru/events/">Мероприятия</a></span><span class="header-content-bottom-menu__horizontal-item_4"><a href="https://career.moex.com" target="_blank">Карьера</a></span><span class="header-content-bottom-menu__horizontal-item_5"><a href="https://cabinet.moex.com/about">Личный кабинет</a></span>
+                                        </div>
+                                        <div class="header-content-bottom-menu__vertical">
+    <div class="header-content-bottom-menu__vertical-item js-toggle">
+        <a href="/s4" class="header-content-bottom-menu__vertical-link _submenu js-toggle-control">Рынки</a>
+        <div class="header-content-bottom-menu__vertical-dropdown js-toggle-target">
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s4" class="header-content-bottom-menu__vertical-dropdown-link">Рынки Московской Биржи</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1160" class="header-content-bottom-menu__vertical-dropdown-link">Фондовый рынок</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/derivatives/" class="header-content-bottom-menu__vertical-dropdown-link">Срочный рынок</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/markets/currency/" class="header-content-bottom-menu__vertical-dropdown-link">Валютный рынок</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/markets/money/" class="header-content-bottom-menu__vertical-dropdown-link">Денежный рынок</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/PreciousMetals/" class="header-content-bottom-menu__vertical-dropdown-link">Товарный рынок</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s850" class="header-content-bottom-menu__vertical-dropdown-link">Рынок стандартизированных ПФИ</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s25" class="header-content-bottom-menu__vertical-dropdown-link">Рынок инноваций и инвестиций</a></div>
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s3019" class="header-content-bottom-menu__vertical-dropdown-link">Сектор Устойчивого Развития</a></div>
+
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s2151" class="header-content-bottom-menu__vertical-dropdown-link">Сектор Роста</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/markets/risksector/" class="header-content-bottom-menu__vertical-dropdown-link">Сектор компаний повышенного инвестиционного риска</a></div>
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1521" class="header-content-bottom-menu__vertical-dropdown-link">OTC (MOEX Board)</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/tradingcalendar/" class="header-content-bottom-menu__vertical-dropdown-link">Торговый календарь</a></div>
+        </div>
+    </div>
+    <div class="header-content-bottom-menu__vertical-item js-toggle">
+        <a href="/ru/indices" class="header-content-bottom-menu__vertical-link _submenu js-toggle-control">Индексы</a>
+        <div class="header-content-bottom-menu__vertical-dropdown js-toggle-target">
+
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/indices" class="header-content-bottom-menu__vertical-dropdown-link">Индексы Московской Биржи</a></div>
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/indices" class="header-content-bottom-menu__vertical-dropdown-link">Значения индексов</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/index/IMOEX" class="header-content-bottom-menu__vertical-dropdown-link">Индекс МосБиржи и Индекс РТС</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/index/IMOEX/about/" class="header-content-bottom-menu__vertical-dropdown-link">Индексы акций</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/index/RGBITR/about/" class="header-content-bottom-menu__vertical-dropdown-link">Индексы облигаций</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/index/inav" class="header-content-bottom-menu__vertical-dropdown-link">Расчетная цена инвестиционного пая (iNAV)</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/index/pension/" class="header-content-bottom-menu__vertical-dropdown-link">Составные индексы</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s2530" class="header-content-bottom-menu__vertical-dropdown-link">Индикаторы денежного рынка</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/fixing/" class="header-content-bottom-menu__vertical-dropdown-link">Валютные фиксинги</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/markets/currency/swaps.aspx?code=SRATE_USD_1W&tid=2560" class="header-content-bottom-menu__vertical-dropdown-link">Индикаторы свопов</a></div>
+          
+                   
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/index/WHFOB" class="header-content-bottom-menu__vertical-dropdown-link">Товарные индексы</a></div>
+          
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/index/RVI" class="header-content-bottom-menu__vertical-dropdown-link">Индекс волатильности</a></div>
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a class="header-content-bottom-menu__vertical-dropdown-link" href="/msn/to_management_companies_custom_indexes">Заказные индексы</a></div>
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/factsheet" class="header-content-bottom-menu__vertical-dropdown-link">Факты и Цифры</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="https://www.moex.com/msn/indices_products_to_management_companies_trademarks" class="header-content-bottom-menu__vertical-dropdown-link">Продукты и услуги</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/fsn/ru-indices-methodology" class="header-content-bottom-menu__vertical-dropdown-link">Методики расчета</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s2554" class="header-content-bottom-menu__vertical-dropdown-link">Управление и контроль</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/news/?ncat=108" class="header-content-bottom-menu__vertical-dropdown-link">Новости</a></div>
+
+        </div>
+    </div>
+
+
+    <div class="header-content-bottom-menu__vertical-item js-toggle">
+        <a href="/ru/orders" class="header-content-bottom-menu__vertical-link _submenu js-toggle-control">Биржевая информация</a>
+        <div class="header-content-bottom-menu__vertical-dropdown js-toggle-target">
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/msn/altSystems" class="header-content-bottom-menu__vertical-dropdown-link">Получение данных</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/datapolicy/" class="header-content-bottom-menu__vertical-dropdown-link">Порядок использования</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/orders?endofday" class="header-content-bottom-menu__vertical-dropdown-link">Информационные продукты</a></div>
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/analyticalproducts?netflow1" class="header-content-bottom-menu__vertical-dropdown-link">Аналитические продукты</a></div>
+
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1146" class="header-content-bottom-menu__vertical-dropdown-link">Тарифы и договоры</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/data/" class="header-content-bottom-menu__vertical-dropdown-link">Котировки</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s157" class="header-content-bottom-menu__vertical-dropdown-link">Итоги торгов</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1957" class="header-content-bottom-menu__vertical-dropdown-link">Аналитические продукты и сервисы</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s158" class="header-content-bottom-menu__vertical-dropdown-link">Внебиржевые сделки</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s124" class="header-content-bottom-menu__vertical-dropdown-link">Для мобильных устройств</a></div>
+        </div>
+    </div>
+    <div class="header-content-bottom-menu__vertical-item js-toggle">
+        <a href="/s19" class="header-content-bottom-menu__vertical-link _submenu js-toggle-control">Листинг</a>
+        <div class="header-content-bottom-menu__vertical-dropdown js-toggle-target">
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1484" class="header-content-bottom-menu__vertical-dropdown-link">Эмитентам</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/listing/securities.aspx" class="header-content-bottom-menu__vertical-dropdown-link">Список ценных бумаг</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s19" class="header-content-bottom-menu__vertical-dropdown-link">Листинг ценных бумаг</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s3020" class="header-content-bottom-menu__vertical-dropdown-link">Секторы ценных бумаг</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s26" class="header-content-bottom-menu__vertical-dropdown-link">Количественные показатели</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s28" class="header-content-bottom-menu__vertical-dropdown-link">Информация о дефолтах</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s21" class="header-content-bottom-menu__vertical-dropdown-link">Тарифы</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s22" class="header-content-bottom-menu__vertical-dropdown-link">Документы</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s27" class="header-content-bottom-menu__vertical-dropdown-link">Отчетность эмитентов</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s23" class="header-content-bottom-menu__vertical-dropdown-link">Инфраструктура</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/news/?ncat=104" class="header-content-bottom-menu__vertical-dropdown-link">Новости</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/events/?market=issuers" class="header-content-bottom-menu__vertical-dropdown-link">Мероприятия</a></div>
+        </div>
+    </div>
+    <div class="header-content-bottom-menu__vertical-item js-toggle">
+        <a href="/s1541" class="header-content-bottom-menu__vertical-link _submenu js-toggle-control">Управление рисками</a>
+        <div class="header-content-bottom-menu__vertical-dropdown js-toggle-target">
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1541" class="header-content-bottom-menu__vertical-dropdown-link">Управление рисками</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1542" class="header-content-bottom-menu__vertical-dropdown-link">Требования к участникам клиринга</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1953" class="header-content-bottom-menu__vertical-dropdown-link">Обеспечение под стресс</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1543" class="header-content-bottom-menu__vertical-dropdown-link">Риск-менеджмент на фондовом и денежном рынке</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1544" class="header-content-bottom-menu__vertical-dropdown-link">Риск-менеджмент на Валютном рынке и рынке драгоценных металлов</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1545" class="header-content-bottom-menu__vertical-dropdown-link">Риск-менеджмент на Срочном рынке</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1546" class="header-content-bottom-menu__vertical-dropdown-link">Риск-менеджмент на рынке стандартизированных ПФИ</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1978" class="header-content-bottom-menu__vertical-dropdown-link">Риск-менеджмент на Товарном рынке</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/news/?ncat=122" class="header-content-bottom-menu__vertical-dropdown-link">Новости</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s1548" class="header-content-bottom-menu__vertical-dropdown-link">Законодательная и регуляторная база</a></div>
+        </div>
+    </div>
+    <div class="header-content-bottom-menu__vertical-item js-toggle">
+        <a href="/s8" class="header-content-bottom-menu__vertical-link _submenu js-toggle-control">Технологические решения</a>
+        <div class="header-content-bottom-menu__vertical-dropdown js-toggle-target">
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s8" class="header-content-bottom-menu__vertical-dropdown-link">Технологические решения</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s63" class="header-content-bottom-menu__vertical-dropdown-link">Библиотека</a></div>
+
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s154" class="header-content-bottom-menu__vertical-dropdown-link">Подключения к Бирже</a></div>
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s397" class="header-content-bottom-menu__vertical-dropdown-link">Продукты и сервисы</a></div>
+
+
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s324" class="header-content-bottom-menu__vertical-dropdown-link">Тарифы</a></div>
+
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/s3018" class="header-content-bottom-menu__vertical-dropdown-link">Программа ответственного раскрытия информации о найденных уязвимостях</a></div>
+
+
+            <!--div class="header-content-bottom-menu__vertical-dropdown-item"><a href="http://forum.moex.com" class="header-content-bottom-menu__vertical-dropdown-link">Форум</a></div-->
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/msn/technical-calendar" class="header-content-bottom-menu__vertical-dropdown-link">Календарь релизов и технологических изменений</a></div>        
+          
+            <div class="header-content-bottom-menu__vertical-dropdown-item"><a href="/ru/news/?ncat=107" class="header-content-bottom-menu__vertical-dropdown-link">Новости</a></div>
+          
+          
+
+          
+          
+        </div>
+    </div>
+</div>
+<div class="header-content-bottom-menu__vertical-alone">
+    <div class="header-content-bottom-menu__vertical-item"><a href="/s1480" class="header-content-bottom-menu__vertical-link">Участникам Торгов</a></div>
+    <div class="header-content-bottom-menu__vertical-item"><a href="https://www.moex.com/msn/investor" class="header-content-bottom-menu__vertical-link">Частным инвесторам</a></div>
+    <div class="header-content-bottom-menu__vertical-item"><a href="/s1482" class="header-content-bottom-menu__vertical-link">Управляющим активами</a></div>
+    <div class="header-content-bottom-menu__vertical-item"><a href="/s1483" class="header-content-bottom-menu__vertical-link">Международным инвесторам</a></div>
+    <div class="header-content-bottom-menu__vertical-item"><a href="/s1484" class="header-content-bottom-menu__vertical-link">Эмитентам</a></div>
+</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header__bottom">
+                            <nav class='header-menu'>
+                    <span class='header-menu__item js-menu-dropdown'>
+                        <a href='javascript:void(0)' class='header-menu__link _button js-menu-dropdown-button'></a>
+                        <div class='header-menu__dropdown js-menu-dropdown-target'>
+                            <div class='header-menu-dropdown'>
+                                <div class='header-menu-dropdown__inner'>
+                                    <div class="menu-block">
+    <div class="item-header"><a href="/s4">Рынки</a></div>
+    <div class="item"><a href="/s1160">Фондовый рынок</a></div>
+    <div class="item"><a href="/ru/derivatives/">Срочный рынок</a></div>
+    <div class="item"><a href="/ru/markets/currency/">Валютный рынок</a></div>
+    <div class="item"><a href="/ru/markets/money/">Денежный рынок</a></div>
+    <div class="item"><a href="/PreciousMetals">Товарный рынок</a></div>
+    <div class="item"><a href="/s850">Рынок стандартизированных ПФИ</a></div>
+    <div class="item"><a href="/s25">Рынок инноваций и инвестиций</a></div>
+    <div class="item"><a href="/s3019">Сектор Устойчивого Развития</a></div>
+    <div class="item"><a href="/s2151">Сектор Роста</a></div>
+    <div class="item"><a href="/ru/markets/risksector/">Сектор компаний повышенного инвестиционного риска</a></div>
+    <div class="item"><a href="/s1521">OTC (MOEX Board)</a></div>
+    <div class="item"><a href="/ru/tradingcalendar/">Торговый календарь</a></div>
+</div>
+
+<div class="menu-block">
+    <div class="item-header"><a href="/ru/indices">Индексы</a></div>
+    <div class="item"><a href="/ru/indices">Значения индексов</a></div>
+    <div class="item"><a href="/ru/index/IMOEX">Индекс МосБиржи и Индекс РТС</a></div>
+    <div class="item"><a href="/ru/index/IMOEX/about/">Индексы акций</a></div>
+    <div class="item"><a href="/ru/index/RGBITR/about/">Индексы облигаций</a></div>
+    <div class="item"><a href="/ru/index/inav">Расчетная цена инвестиционного пая (iNAV)</a></div>
+    <div class="item"><a href="/ru/index/pension/">Составные индексы</a></div>
+    <div class="item"><a href="/s2530">Индикаторы денежного рынка</a></div>
+    <div class="item"><a href="/ru/fixing/">Валютные фиксинги</a></div>
+    <div class="item"><a href="/ru/markets/currency/swaps.aspx?code=SRATE_USD_1W&tid=2560">Индикаторы свопов</a></div>
+    <div class="item"><a href="/ru/index/WHFOB">Товарные индексы</a></div>
+    <div class="item"><a href="/ru/index/RVI">Индекс волатильности</a></div>
+
+
+
+    <div class="item"><a href="/msn/to_management_companies_custom_indexes">Заказные индексы</a></div>
+    <div class="item"><a href="/ru/factsheet">Факты и Цифры</a></div>
+    <div class="item"><a href="/msn/indices_products_to_management_companies_trademarks">Продукты и услуги</a></div>
+    <div class="item"><a href="/fsn/ru-indices-methodology">Методики расчета</a></div>
+    <div class="item"><a href="/s2554">Управление и контроль</a></div>
+    <div class="item"><a href="/ru/news/?ncat=108">Новости</a></div>
+</div>
+
+<div class="menu-block">
+    <div class="item-header"><a href="/ru/orders">Биржевая информация</a></div>
+    <div class="item"><a href="/msn/altSystems">Получение данных</a></div>
+    <div class="item"><a href="/ru/datapolicy/">Порядок использования</a></div>
+    <div class="item"><a href="/ru/orders?endofday">Информационные продукты</a></div>
+    <div class="item"><a href="/ru/analyticalproducts?netflow1">Аналитические продукты</a></div>
+    <div class="item"><a href="/s1146">Тарифы и договоры</a></div>
+    <div class="item"><a href="/ru/data">Котировки</a></div>
+    <div class="item"><a href="/s157">Итоги торгов</a></div>
+    <div class="item"><a href="/s158">Внебиржевые сделки</a></div>
+    <div class="item"><a href="/s124">Для мобильных устройств</a></div>
+</div>
+
+<div class="menu-block">
+    <div class="item-header"><a href="/s7">Листинг</a></div>
+    <div class="item"><a href="/s1484">Эмитентам</a></div>
+    <div class="item"><a href="/ru/listing/securities.aspx">Список ценных бумаг</a></div>
+    <div class="item"><a href="/s19">Листинг ценных бумаг</a></div>
+    <div class="item"><a href="/s3020">Секторы ценных бумаг</a></div>
+    <div class="item"><a href="/s26">Количественные показатели</a></div>
+    <div class="item"><a href="/s28">Информация о дефолтах</a></div>
+    <div class="item"><a href="/s21">Тарифы</a></div>
+    <div class="item"><a href="/s22">Документы</a></div>
+    <div class="item"><a href="/s27">Отчетность эмитентов</a></div>
+    <div class="item"><a href="/s23">Инфраструктура</a></div>
+    <div class="item"><a href="/ru/news/?ncat=104">Новости</a></div>
+    <div class="item"><a href="/ru/events/?market=issuers">Мероприятия</a></div>
+</div>
+
+<div class="menu-block">
+    <div class="item-header"><a href="/s1541">Управление рисками</a></div>
+    <div class="item"><a href="/s1542">Требования к участникам клиринга</a></div>
+    <div class="item"><a href="/s1953">Обеспечение под стресс</a></div>
+    <div class="item"><a href="/s2089">Гарантийные фонды</a></div>
+    <div class="item"><a href="/s1543">Риск-менеджмент на фондовом и денежном рынке</a></div>
+    <div class="item"><a href="/s1544">Риск-менеджмент на валютном рынке и рынке драгоценных металлов</a></div>
+    <div class="item"><a href="/s1545">Риск-менеджмент на срочном рынке</a></div>
+    <div class="item"><a href="/s1546">Риск-менеджмент на рынке стандартизированных ПФИ</a></div>
+    <div class="item"><a href="/s1978">Риск-менеджмент на Товарном рынке</a></div>
+    <div class="item"><a href="/ru/news/?ncat=122">Новости</a></div>
+    <div class="item"><a href="/s1548">Законодательная и регуляторная база</a></div>
+</div>
+
+<div class="menu-block">
+    <div class="item-header"><a href="/s8">Технологические решения</a></div>
+    <div class="item"><a href="/s63">Библиотека</a></div>
+
+    <div class="item"><a href="/s154">Подключение к Бирже</a></div>
+    <div class="item"><a href="/s397">Продукты и сервисы</a></div>
+    <div class="item"><a href="/s324">Тарифы</a></div>
+    <div class="item"><a href="/s3018">Программа ответственного раскрытия информации о найденных уязвимостях</a></div>
+
+<div class="item"><a href="/msn/technical-calendar">Календарь релизов и технологических изменений</a></div>
+    <div class="item"><a href="/ru/news/?ncat=107">Новости</a></div>
+    
+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </span> 
+                
+                        <span class='header-menu__item'><a class='header-menu__link' href='/s1480'>Участникам торгов</a></span>
+                        
+                        <span class='header-menu__item'><a class='header-menu__link' href='/s1481'>Частным инвесторам</a></span>
+                        
+                        <span class='header-menu__item'><a class='header-menu__link' href='/s1482'>Управляющим активами</a></span>
+                        
+                        <span class='header-menu__item'><a class='header-menu__link' href='/s1483'>Международным инвесторам</a></span>
+                        
+                        <span class='header-menu__item'><a class='header-menu__link' href='/s1484'>Эмитентам</a></span>
+                        <span class='header-menu__item'><a href = '/en' class='header-menu__link _lang'><img src = '/images/flag-en.gif' alt='English' class='header-menu__icon'><span class='header-menu__text'>English</span></a></span></nav>
+                        </div>
+
+                        <script>
+                            $(window).on("scroll", function () {
+                                let fromTop = $(window).scrollTop();
+
+                                let has = $("body").hasClass("down");
+
+                                if (has && fromTop < 100)
+                                    $("body").toggleClass("down", false);
+                                else if (!has && fromTop > 130)
+                                    $("body").toggleClass("down", true);
+                            });
+                        </script>
+
+                        <script src="/js/mobile-menu-and-search.js?v=20211126154642173" type="text/javascript"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /header -->
+        <div class="page__main">
+            <div class="main">
+                <div class="container">
+                    <div class="row blocks-list">
+                        <div class="_layout blocks-list__item col-lg-39 col-lg-push-9">
+                            <div class="blocks-list">
+                                <div class="blocks-list__item hidden-xs">
+                                    <div class="ticker">
+                                        <div id="ticker"></div>
+                                    </div>
+                                </div>
+                                <div class="blocks-list__item swiper-android">
+                                    <div class="row">
+                                        
+                                        
+                                        
+	<div class='col-lg-18 col-lg-push-30'><div id='MoexChartsWidgetsContainer'></div>
+					<script>
+							window.MoexChartsWidgets.charts.create('#MoexChartsWidgetsContainer', { locale: 'ru', admin: false });
+					</script></div><div class='col-lg-30 col-lg-pull-18'><div class="blocks-list__item">
+    <div class="banners-slider js-banners">
+        <div class="banners-slider__slider swiper-container js-banners-slider">
+            <div class="swiper-wrapper">
+              
+              
+          
+                           
+                          
+              
+                         
+            <!--div class="swiper-slide">
+        <a href="/msn/MOEX-Hometalks" class="banners-slider__item">
+         <img src="https://fs.moex.com/f/15626/mht-18.jpg" alt=' MOEX Home Talks ' class="banners-slider__image" />
+</a> </div-->            
+             
+              
+                          <div class="swiper-slide">
+                  <a href="/promo/global/" class="banners-slider__item">
+              <img src="https://fs.moex.com/f/15527/info.jpg" alt='ИНОСТРАННЫЕ АКЦИИ НА МОСКОВСКОЙ БИРЖЕ' class="banners-slider__image" />
+                </a></div>
+
+              
+              
+              
+              
+       <div class="swiper-slide">
+       <a href="/a4437" class="banners-slider__item">
+        <img src="https://fs.moex.com/f/15443/non-ferrous-metal.png" alt='Конкурс "Цветные перспективы"' class="banners-slider__image" />
+     </a></div>                         
+      
+
+        
+
+              
+                       
+              
+              
+              
+            <div class="swiper-slide">
+            <a href="https://school.moex.com/put-investora/?utm_source=moex_ban&utm_campaign=ad_put" class="banners-slider__item">
+            <img src="https://fs.moex.com/f/14969/info2.jpg" alt='Курс "Путь инвестора"' class="banners-slider__image" />
+                    </a>
+                </div>     
+              
+              
+                           <!--div class="swiper-slide">
+                    <a href="/msn/bonds-evening-session" class="banners-slider__item">
+                        <img src="https://fs.moex.com/f/15205/vechern-torg.jpg" alt='Московская биржа запускает вечернюю сессию на рынке облигаций' class="banners-slider__image" />
+                    </a>
+                </div--> 
+              
+                      <div class="swiper-slide">
+
+                    <a href="https://forum2021.moex.com/" class="banners-slider__item">
+
+                        <img src="https://fs.moex.com/f/15600/forum2021.jpg" alt='ФОРУМ МОСКОВСКОЙ БИРЖИ 2021' class="banners-slider__image" />
+
+                    </a>
+
+                </div> 
+                                                   <!--div class="swiper-slide">
+                    <a href="/s3320" class="banners-slider__item">
+                        <img src="https://fs.moex.com/f/15420/simba.png" alt='SIMBA SPECTRA' class="banners-slider__image"  />
+                    </a>
+                </div-->  
+              
+              
+              
+                                  
+              
+      <!--div class="swiper-slide">
+        <a href="http://www.naufor.ru/tree.asp?n=22465" class="banners-slider__item">
+         <img src="https://fs.moex.com/f/15423/naufor.jpg" alt='Онлайн-конференция "Структурные продукты"' class="banners-slider__image" />
+</a> </div-->            
+  
+               
+              
+
+              
+              
+              
+
+                     <!--div class="swiper-slide">
+                    <a href="https://finuslugi.ru/" class="banners-slider__item">
+                        <img src="https://fs.moex.com/f/13542/gosuslugi.jpg" alt='Платформа личных финансов "Финуслуги"' class="banners-slider__image" />
+                    </a>
+                </div--> 
+              
+                       
+
+       
+             
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <div class="banners-slider__pagination swiper-pagination js-banners-pagination"></div>
+        </div>
+    </div>
+</div>
+
+
+                <div class='blocks-list__item _content' style='position: relative;'>
+                    <div class='blocks-list__item'>
+                        <div class='title-block js-tabs'>
+                            <div class='title-block__header'>
+                                <div class='title-block__header-inner'>
+                                    <div class='title-block__title'>НОВОСТИ / ПРЕСС-РЕЛИЗЫ</div>
+                                    <div class='title-block__controls'>
+                                        <div class='socials'>
+                                            <a href='https://t.me/MoscowExchangeOfficial' target='_blank' class='_tg socials__item'></a>
+                                            <a href='https://www.facebook.com/MSKExchange' target='_blank' class='_fb socials__item'></a>
+                                            <a href='https://vk.com/moscow_exchange' target='_blank' class='_vk socials__item'></a>
+                                            <a href='https://twitter.com/moscow_exchange' target='_blank' class='_tw socials__item'></a>
+                                            <a href='https://www.youtube.com/user/RTSexchange' target='_blank' class='_yt socials__item'></a>
+                                            <a href='https://instagram.com/moscow_exchange/' target='_blank' class='_ig socials__item'></a>
+                                            <a href='http://habrahabr.ru/company/moex/blog/' target='_blank' class='_hb socials__item'></a>
+                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='title-block__content js-tabs-content'>
+                    <div class='tabs_box visible'><div class='news-list'>
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <b>25.11.2021</b> 
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38134/?nt=106' class='news-list__link'>Владимир Яровой назначен руководителем бизнеса деривативов Московской биржи</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <b>24.11.2021</b> 
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38101/?nt=106' class='news-list__link'>Устойчивое развитие и влияние частных инвесторов на рынок стали главными темами Международного форума Московской биржи</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <b>23.11.2021</b> 
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38036/?nt=106' class='news-list__link'>Московская биржа начала торги БПИФ на еврооблигации в евро</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <b>23.11.2021</b> 
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38034/?nt=106' class='news-list__link'>Московская биржа проведет MOEX Home Talks с главой МТС Вячеславом Николаевым</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <b>23.11.2021</b> 
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38031/?nt=106' class='news-list__link'>Торги биржевым фондом на акции американских компаний начались на Московской бирже</a></div>
+                                            </div>
+                                        </div></div>
+                    </div>
+                            <div class='title-block__button'><a href='/ru/news/?ncat=106'>Все новости <span class='icon _corner-right'></span></a></div>
+                        </div>
+                    </div>
+                    <div class='blocks-list__item'>
+                        <div class='title-block js-tabs'>
+                            <div class='title-block__header'>
+                                <div class='title-block__header-inner'>
+                                    <div class='title-block__title'>ОБЪЯВЛЕНИЯ</div>
+                                    <div class='title-block__controls'>
+                                        <div class='title-block-tabs'><span class='title-block-tabs__item js-tabs-controls'>
+                                    <a href='javascript:void(0)' class='title-block-tabs__link'>Все</a>
+                                </span>
+                                <span class='title-block-tabs__item js-tabs-controls'>
+                                    <a href='javascript:void(0)' class='title-block-tabs__link'>Листинг</a>
+                                </span>
+                                <span class='title-block-tabs__item js-tabs-controls'>
+                                    <a href='javascript:void(0)' class='title-block-tabs__link'>Иностранные акции</a>
+                                </span>
+                                        </div>                                            
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='title-block__content js-tabs-content'>
+                                <div class='news-list'>
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>26.11.2021</b> </div> <div class='col-lg-14 text-right'>22:02</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38215/?nt=101' class='news-list__link'>26.11.2021, 22-02 (мск) изменены значения верхней границы ценового коридора и диапазона оценки рыночных рисков ценной бумаги JPM-RM (JPMorgan Chase Ord Shs).</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>26.11.2021</b> </div> <div class='col-lg-14 text-right'>19:57</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38210/?nt=101' class='news-list__link'>26.11.2021, 19-57 (мск) изменены значения нижней границы ценового коридора и диапазона оценки рыночных рисков ценной бумаги HAL-RM (Halliburton Company).</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>26.11.2021</b> </div> <div class='col-lg-14 text-right'>19:34</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38208/?nt=101' class='news-list__link'>26.11.2021, 19-34 (мск) изменены значения нижней границы ценового коридора и диапазона оценки рыночных рисков ценной бумаги LVS-RM (Las Vegas Sands Corp.).</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>26.11.2021</b> </div> <div class='col-lg-14 text-right'>19:25</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38206/?nt=101' class='news-list__link'>26.11.2021, 19-25 (мск) изменены значения верхней границы ценового коридора и диапазона оценки рыночных рисков ценной бумаги QDEL-RM (Quidel Ord Shs).</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>26.11.2021</b> </div> <div class='col-lg-14 text-right'>19:13</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38205/?nt=101' class='news-list__link'>Итоги выпуска биржевых облигаций</a></div>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div class='title-block__content js-tabs-content is-hidden'>
+                                <div class='news-list'>
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>26.11.2021</b> </div> <div class='col-lg-14 text-right'>19:13</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38205/?nt=104' class='news-list__link'>Итоги выпуска биржевых облигаций</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>26.11.2021</b> </div> <div class='col-lg-14 text-right'>17:54</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38189/?nt=104' class='news-list__link'>О внесении изменений в Список ценных бумаг, допущенных к торгам</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>26.11.2021</b> </div> <div class='col-lg-14 text-right'>17:30</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38176/?nt=104' class='news-list__link'>О начале торгов ценными бумагами 29 ноября 2021 года</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>25.11.2021</b> </div> <div class='col-lg-14 text-right'>19:15</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38150/?nt=104' class='news-list__link'>О регистрации выпуска биржевых облигаций ПАО Сбербанка, о включении его в Список ценных бумаг, допущенных к торгам, и о присвоении указанным биржевым облигациям регистрационного номера</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>25.11.2021</b> </div> <div class='col-lg-14 text-right'>19:12</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38149/?nt=104' class='news-list__link'>О регистрации выпусков биржевых облигаций, о включении их в Список ценных бумаг, допущенных к торгам, и о присвоении указанным биржевым облигациям регистрационных номеров</a></div>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div class='title-block__content js-tabs-content is-hidden'>
+                                <div class='news-list'>
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>25.11.2021</b> </div> <div class='col-lg-14 text-right'>17:37</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n38148/?nt=125' class='news-list__link'>О торговых параметрах старта торгов обыкновенными акциями VEON Ltd</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>19.11.2021</b> </div> <div class='col-lg-14 text-right'>17:46</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n37948/?nt=125' class='news-list__link'>Об изменении риск-параметров по акциям</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>17.11.2021</b> </div> <div class='col-lg-14 text-right'>16:00</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n37847/?nt=125' class='news-list__link'>Об изменении риск-параметров по акциям</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>16.11.2021</b> </div> <div class='col-lg-14 text-right'>10:45</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n37796/?nt=125' class='news-list__link'>О смене торгового кода акций Meta Platforms Inc. с 1 декабря 2021</a></div>
+                                            </div>
+                                        
+                                            <div class='news-list__item'>
+                                                <div class='news-list__date'>
+                                                    <div class='news-list__date'><div class='row row-news'><div class='col-lg-44'><div class='col-lg-30'><b>15.11.2021</b> </div> <div class='col-lg-14 text-right'>15:42</div></div></div></div>
+                                                </div>
+                                                <div class='news-list__content'><a href='/n37771/?nt=125' class='news-list__link'>Об изменении риск-параметров по акциям</a></div>
+                                            </div>
+                                        </div>
+                            </div>
+                            <div class='title-block__button'><a href='/ru/news/'>Все объявления <span class='icon _corner-right'></span></a></div>
+                        </div>
+                    </div>
+                </div>
+
+                    
+            <div class="blocks-list__item">
+    <div class="banners-slider js-banners">
+        <div class="banners-slider__slider swiper-container js-banners-slider">
+            <div class="swiper-wrapper">
+              
+          
+              
+              
+                            
+              <!--div class="swiper-slide">
+                    <a href="https://finuslugi.ru/vklady/mkb-preimushchestvo-3802?utm_source=moex.com&utm_medium=glavnaya_top&utm_campaign=mkb8" class="banners-slider__item">
+                        <img src="https://fs.moex.com/f/15052/8perc.jpg" alt='Финуслуги' class="banners-slider__image" />
+                    </a>
+                </div-->  
+              
+              
+           
+               <div class="swiper-slide">
+                    <a href="/msn/stocks-morning" class="banners-slider__item">
+                        <img src="https://fs.moex.com/f/15400/morning.png" alt='Утренняя сессия на фондовом рынке ' class="banners-slider__image" />
+                    </a>
+                </div>   
+              
+              
+              
+              
+              
+              
+ 
+              
+                       
+                     <!--div class="swiper-slide">
+                    <a href="http://investor.moex.com/" class="banners-slider__item">
+                        <img src="https://fs.moex.com/f/13410/lchi2020.png" alt='Конкурс "Лучший частный инвестор"' class="banners-slider__image" />
+                    </a>
+                </div-->      
+         
+
+       
+              <!--div class="swiper-slide">
+                    <a href="https://konkurs.moex.com/" class="banners-slider__item">
+                        <img src="https://fs.moex.com/f/12818/kgo-2020.jpg" alt="Конкурс годовых отчетов" class="banners-slider__image" />
+                    </a>
+                </div-->  
+              
+                           
+              
+                <div class="swiper-slide"><a href="/n35012/" class="banners-slider__item">
+
+                   <img src="https://fs.moex.com/f/14909/podkast.png" alt='Школа Московской биржи запускает подкаст "Деньги делают деньги"' class="banners-slider__image" />
+
+                </a></div>     
+                         
+              
+              
+              <div class="swiper-slide"><a href="/n36706/" class="banners-slider__item">
+
+                   <img src="https://fs.moex.com/f/15472/ny-2022.png" alt="Московская биржа будет торговать в праздничные дни 2022 года" class="banners-slider__image" />
+
+                </a></div>   
+              
+              <!--div class="swiper-slide">
+<a href="https://place.moex.com/open?utm_source=moex.com&utm_medium=referral&utm_campaign=banner&utm_term=main_page_banner" class="banners-slider__item" onclick="_gaq.push(['_trackEvent', 'Button2', 'Click2']);">
+                   <img src="https://fs.moex.com/f/11931/banner-place.jpg" alt="Откройте брокерский счет и ИИС онлайн " class="banners-slider__image" />
+                </a></div>           
+                       
+          
+                   
+             <div class="swiper-slide"><a href="https://du.moex.com/?utm_source=moex.com&utm_medium=banner&utm_term=mainpage" class="banners-slider__item">
+                   <img src="https://fs.moex.com/f/11016/dumoex.jpg" alt="Московская биржа запустила витрину продуктов доверительного управления" class="banners-slider__image" />
+                </a></div--> 
+                
+                         
+
+              
+          
+
+
+
+
+    
+        
+
+        
+   
+        
+
+
+
+
+  
+          
+
+         
+
+                   
+
+
+
+                
+               
+            </div>
+            <div class="banners-slider__pagination swiper-pagination js-banners-pagination"></div>
+        </div>
+    </div>
+</div>
+
+<div class='blocks-list__item _content visible-lg-block'>
+                                        <div class='title-block js-tabs'>
+                                            <div class='title-block__header'>
+                                                <div class='title-block__header-inner'>
+                                                    <div class='title-block__title'>МЕРОПРИЯТИЯ</div>
+                                                    <div class='title-block__controls'>
+                                                        <div class='title-block-tabs'>
+                                                            <span class='title-block-tabs__item js-tabs-controls is-active'><a href='javascript:void(0)' class='title-block-tabs__link'>Сегодня</a></span><span class='title-block-tabs__item js-tabs-controls'><a href='javascript:void(0)' class='title-block-tabs__link'>Предстоящие</a></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><div class='title-block__content js-tabs-content'><div class='news-list'></div></div><div class='title-block__content js-tabs-content is-hidden'><div class='news-list'>
+                            <div class='news-list__item'>
+                                <div class='news-list__date'>
+                                    <b>30.11.2021</b>
+                                </div>
+                                <div class='news-list__content'><a href='/e17342' class='news-list__link'>Курс "Все о биржевых фондах"</a></div>
+                            </div></div></div><div class='title-block__button'><a href = '/ru/events/'>Все мероприятия <span class='icon _corner-right'></span></a></div></div></div><div class="blocks-list__item _content">
+    <div class="title-block">
+        <div class="title-block__header">
+            <div class="title-block__header-inner">
+                <div class="title-block__title">ТОРГОВЫЙ КАЛЕНДАРЬ</div>
+            </div>
+        </div>
+
+        <div class="title-block__content">
+            <div class="title-block__text">
+                <p>Продолжительность торговой сессии на фондовом рынке с 09:30 до 23:50 мск, на срочном, валютном, товарном рынках - с 07:00 до 23:50 мск</p>
+            </div>
+
+            <div id="calendar"></div>
+
+        </div>
+
+        <div class="title-block__button"><a href="/ru/tradingcalendar/">Весь календарь<img alt="Весь календарь" height="7" src="https://www.moex.com/images/corner.gif" style="margin-left: 4px; border: 0px;" width="7" /></a></div>
+
+        <div class="title-block__calendar-description">
+            <div class="calendar-description">
+                <div class="calendar-description__item">
+                    <div class="calendar-description__date">14</div>
+
+                    <div class="calendar-description__text"><b>дата истечения опционов</b>. Вечерняя дополнительная торговая сессия на срочном рынке начинается в 19:05 мск.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- стиль календаря -->
+<link rel=" stylesheet" type="text/css" href="/styles/tradeCalendar/tradingcalendar3m.css" />
+<!-- календарь -->
+<script src="/js/tradeCalendar/TradingCalendar3m.js"></script>
+<script>
+    'use strict';
+    calendar3currentMonth('#calendar', document.documentElement.lang, window.moex.baseUrl + '/api/stat/outlook/msnbsn/tc_jsons/');
+</script></div>
+
+                                        <span id="ctl00_PageBottomTextAddition"></span>
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-lg-pull-39">
+                            <div class="blocks-list">
+                                <div class="blocks-list__item">
+                                    <div class="blocks-list _columns">
+                                        
+                                        <div class="blocks-list__item _content visible-lg-block">
+                        <div class="sidebar-list _gray _border">
+                          <a href="/s1160" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner">
+                                <span class="sidebar-list__text">
+                                  <div class="sidebar-list__link">Акции и облигации</div>
+                                </span>
+                            </div>
+                          </a>
+                          <a href="/s14" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner">
+                                <span class="sidebar-list__text">
+                                  <div class="sidebar-list__link">Деривативы</div>
+                                </span>
+                            </div>
+                          </a>
+                          <a href="/s11" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner">
+                                <span class="sidebar-list__text">
+                                  <div class="sidebar-list__link">Валюта</div>
+                                </span>
+                            </div>
+                          </a>
+                          <a href="/s13" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner">
+                                <span class="sidebar-list__text">
+                                  <div class="sidebar-list__link">РЕПО и депозиты</div>
+                                </span>
+                            </div>
+                          </a>
+                          <a href="/s850" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner">
+                                <span class="sidebar-list__text">
+                                  <div class="sidebar-list__link">Стандартизированные ПФИ</div>
+                                </span>
+                            </div>
+                          </a>
+                          <a href="/s976" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner">
+                                <span class="sidebar-list__text">
+                                  <div class="sidebar-list__link">Драгоценные металлы</div>
+                                </span>
+                            </div>
+                          </a>
+                          <a href="/s1521" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner">
+                                <span class="sidebar-list__text">
+                                  <div class="sidebar-list__link">OTC (MOEX Board)</div>
+                                </span>
+                            </div>
+                          </a>
+                          <!--a href="/s2146" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner">
+                                <span class="sidebar-list__text">
+                                  <div class="sidebar-list__link">Единый пул обеспечения</div>
+                                </span>
+                            </div>
+                          </a-->
+                        </div>
+                      </div>
+
+<style>
+  .btn.place{
+    background: #c41a32;
+    width: 100%;
+    margin: 1px auto 0.5rem auto;
+    display: block;
+    font-weight: bold;
+    padding: 5px 0 4px 0;
+    border-radius: 8px;
+  }
+  .btn.place > a{
+    color: #ffffff;
+    text-decoration: none;    
+  }
+  .btn.place > a:hover{
+    color: #e3e3e3;
+  }
+@media (max-width: 1200px) {
+  .btn.place {
+      margin: 10px auto 0px auto;
+  }
+}
+@media (max-width: 767px) {
+  .btn.place {
+      margin: 5px auto 5px auto;
+  }
+}
+</style>
+
+<div id="lk_place_moex_com_link" style="display: none;"><div class="btn place" ><a id="textrotator" href="https://finuslugi.ru/" alt="Платформа личных финансов" target="_blank"  onclick="_gaq.push(['_trackEvent', 'Button', 'Click']);">FINUSLUGI.RU</a></div></div>
+
+
+<script type="text/javascript" >
+ jQuery(function($){
+    Rotator();
+})
+
+function Rotator(start_from){
+    var phrases = ["ФИНУСЛУГИ","FINUSLUGI.RU","ВКЛАДЫ ОНЛАЙН", "КРЕДИТЫ", "ОСАГО ЗА 5 МИНУТ"];
+    var total = phrases.length;
+    var interval = 4000;
+    if(void 0 === start_from){
+        start_from = 0;
+    }
+ 
+    $("#textrotator").text(phrases[start_from]).animate({"opacity":"1"}, 1000, function(){
+                if(start_from >= (total-1)){
+                    setTimeout(function(){
+                        $("#textrotator").animate({"opacity":"0"}, 1000, function(){
+                            Rotator();
+                        });
+                    }, interval);
+                }else{
+                    start_from++;
+                    setTimeout(function(){
+                        $("#textrotator").animate({"opacity":"0"}, 1000,function(){
+                            Rotator(start_from);
+                        });
+                    }, interval);
+         
+                }           
+         
+    })
+}
+
+
+</script>
+
+
+
+<script>
+$(document).ready(function(){
+  //console.debug('lk_place_moex_com_link');
+  
+if ('www1.moex.com' !== window.location.host){
+  ///return;
+}
+  if (!window.page.ru()){
+    return;
+  }  
+  //console.log('open_place_moex_account');
+  
+  var template = $('#lk_place_moex_com_link').html();
+  var selector = 'body > div.page > div.page__main > div > div > div:nth-child(1) > div.col-lg-9.col-lg-pull-39 > div > div > div';
+  var btn = $(template);
+  $(selector).prepend(btn);
+  
+  //var selector_mobile = "body > div.page > div.page__main > div > div";
+  //btn = $(template);
+  //btn.addClass('place_mobile');
+  //$(selector_mobile).prepend(btn);
+});
+  </script>
+
+
+<div class="blocks-list__item _content">
+    <div class="sidebar-list _gray _border">
+      
+      
+          <!--a href="/msn/covid-info" class="sidebar-list__item">
+            <div class="sidebar-list__item-inner">
+                <span class="sidebar-list__image-outer" >
+                    <img src="https://fs.moex.com/f/12553/0019.png" alt="Взаимодействие с биржей в период пандемии "/>
+                </span>
+                <span class="sidebar-list__text">
+                    <div class="sidebar-list__link" style="text-align: center;">Взаимодействие с биржей в период пандемии</div>
+                </span>
+            </div>
+        </a-->
+      
+      
+      
+      
+      
+      
+        <a href="/ru/data/" class="sidebar-list__item">
+            <div class="sidebar-list__item-inner">
+                <span class="sidebar-list__image-outer" >
+                    <img src="https://fs.moex.com/f/2777/icon1.png" alt="Котировки"/>
+                </span>
+                <span class="sidebar-list__text">
+                    <div class="sidebar-list__link" style="text-align: center;">Котировки</div>
+                </span>
+            </div>
+        </a>
+        <a href="/s8" class="sidebar-list__item">
+            <div class="sidebar-list__item-inner">
+                <span class="sidebar-list__image-outer">
+                    <img src="https://fs.moex.com/f/2778/icon2.png" alt="Технологические услуги"/>
+                </span>
+                <span class="sidebar-list__text">
+                    <div class="sidebar-list__link" style="text-align: center;">Технологические услуги</div>
+                </span>
+            </div>
+        </a>
+        <a href="/s1541" class="sidebar-list__item">
+            <div class="sidebar-list__item-inner">
+                <span class="sidebar-list__image-outer">
+                    <img src="https://fs.moex.com/f/3199/risks.png" alt="Управление рисками"/>
+                </span>
+                <span class="sidebar-list__text">
+                    <div class="sidebar-list__link" style="text-align: center;">Управление рисками</div>
+                </span>
+            </div>
+        </a>
+        <a href="/ru/marketmaking/" class="sidebar-list__item">
+            <div class="sidebar-list__item-inner">
+                <span class="sidebar-list__image-outer">
+                    <img src="https://fs.moex.com/f/10855/icon-mm.png" alt="Маркет-мейкинг"/>
+                </span>
+                <span class="sidebar-list__text">
+                    <div class="sidebar-list__link" style="text-align: center;">Маркет-мейкинг</div>
+                </span>
+            </div>
+        </a>
+        
+        
+    </div>
+</div>
+
+
+<div class="blocks-list__item _content">
+                        <div class="sidebar-list _border"><a href="https://www.nsd.ru/ru/" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner"><span class="sidebar-list__image-outer"><img src="/images/sidebar/logo.gif" alt="Услуги центрального депозитария, расчетного банка и торгового репозитария"/></span><span class="sidebar-list__text">
+                                <div class="sidebar-list__link">Услуги центрального депозитария, расчетного банка и торгового репозитария</div></span>
+                            </div></a><a href="http://www.nkcbank.ru/" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner"><span class="sidebar-list__image-outer"><img src="/images/sidebar/logo.gif" alt="Услуги центрального контрагента и клиринговой организации"/></span><span class="sidebar-list__text">
+                                <div class="sidebar-list__link">Услуги центрального контрагента и клиринговой организации</div></span>
+                            </div></a><a href="http://www.ntb.moex.com/" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner"><span class="sidebar-list__image-outer"><img src="/images/sidebar/intervention.png" alt="Национальная товарная биржа"/></span><span class="sidebar-list__text">
+                                <div class="sidebar-list__link">Биржевой товарный рынок на&nbsp;АО&nbsp;НТБ</div></span>
+                            </div></a>
+                            <!--a href="http://www.futofz.moex.com/" class="sidebar-list__item">
+                            <div class="sidebar-list__item-inner"><span class="sidebar-list__image-outer"><img src="/images/sidebar/futures.png" alt="Фьючерсы на корзину ОФЗ"/></span><span class="sidebar-list__text">
+                                <div class="sidebar-list__link">Фьючерсы на корзину ОФЗ</div></span>
+                            </div></a-->
+                        </div>
+                      </div><div class="blocks-list__item _content">
+<div class="sidebar-list">
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://finuslugi.ru/" target="_blank"><span class="sidebar-list__text">МаркетПлейс Московской Биржи</span></a></div>
+</div>
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://forum2021.moex.com/" target="_blank"><span class="sidebar-list__text">Биржевой Форум 2021</span></a></div>
+</div>
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://du.moex.com/" target="_blank"><span class="sidebar-list__text">Витрина продуктов доверительного управления</span></a></div>
+</div>
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://corporates.moex.com/" target="_blank"><span class="sidebar-list__text">Биржа для бизнеса</span></a></div>
+</div>
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://investor.moex.com/" target="_blank"><span class="sidebar-list__text">Конкурс &quot;Лучший частный инвестор&quot;</span></a></div>
+</div>
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://konkurs.moex.com/" target="_blank"><span class="sidebar-list__text">Конкурс годовых отчетов</span></a></div>
+</div>
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://newinvestor.moex.com/" target="_blank"><span class="sidebar-list__text">Конкурс &quot;Invest Trial&quot;</span></a></div>
+</div>
+<!--div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="http://ranking.moex.com/" target="_blank"><span class="sidebar-list__text">Рэнкинг управляющих</span></a></div>
+</div-->
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://ipoguide.moex.com/ru/index.html" target="_blank"><span class="sidebar-list__text">IPO. Руководство для эмитента</span></a></div>
+</div>
+<!--div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://www.oecd.moex.com/ru/" target="_blank"><span class="sidebar-list__text">Круглый стол ОЭСР</span></a></div>
+</div-->
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://futofz.moex.com/" target="_blank"><span class="sidebar-list__text">Фьючерсы на корзину ОФЗ</span></a></div>
+</div>
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="https://school.moex.com/" target="_blank"><span class="sidebar-list__text">Школа Московской Биржи</span></a></div>
+</div>
+<!--div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="http://liga.moex.com/" target="_blank"><span class="sidebar-list__text">Лига Московской Биржи</span></a></div>
+</div>
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="http://forum.moex.com/" target="_blank"><span class="sidebar-list__text">Форум</span></a></div>
+</div-->
+
+<div class="sidebar-list__item-inner">
+<div class="sidebar-list__link"><a class="sidebar-list__item" href="http://museum.moex.com/" target="_blank"><span class="sidebar-list__text">Историческая экспозиция</span></a></div>
+</div>
+</div>
+</div>
+<div class="blocks-list__item _content">
+    <div class="sidebar-list _border">
+        <a href="/s201" class="sidebar-list__item">
+            <div class="sidebar-list__item-inner">
+                <span class="sidebar-list__image-outer">
+                    <img src="/images/reserved/orders.png" alt="Раскрытие информации ПАО Московская Биржа" />
+                </span>
+                <span class="sidebar-list__text">
+                    <div class="sidebar-list__link">Раскрытие информации Московская&nbsp;Биржа</div>
+                </span>
+            </div>
+        </a>
+        <a href="/s535" class="sidebar-list__item">
+            <div class="sidebar-list__item-inner">
+                <span class="sidebar-list__image-outer">
+                    <img src="/images/reserved/orders.png" alt="Контроль за инсайдерской информацией" />
+                </span>
+                <span class="sidebar-list__text">
+                    <div class="sidebar-list__link">Контроль за инсайдерской<br>информацией</div>
+                </span>
+            </div>
+        </a>
+        <a href="http://www.e-disclosure.ru/portal/company.aspx?id=43" class="sidebar-list__item">
+            <div class="sidebar-list__item-inner">
+                <span class="sidebar-list__image-outer">
+                    <img src="/images/reserved/orders.png" alt="Обязательное раскрытие в ленте новостей" />
+                </span>
+                <span class="sidebar-list__text">
+                    <div class="sidebar-list__link">Обязательное раскрытие в&nbsp;ленте&nbsp;новостей</div>
+                </span>
+            </div>
+        </a>
+        <a href="/s3063" class="sidebar-list__item">
+            <div class="sidebar-list__item-inner">
+                <span class="sidebar-list__image-outer">
+                    <img src="/images/reserved/orders.png" alt="Осторожно мошенники" />
+                </span>
+                <span class="sidebar-list__text">
+                    <div class="sidebar-list__link">Предупреждение о возможных<br>мошеннических действиях</div>
+                </span>
+            </div>
+        </a>
+    </div>
+</div>
+                                        
+	
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 blocks-list__item _layout">
+                            
+                        </div>
+                        
+                        
+
+                        
+                        
+
+                        
+                        
+                    </div>
+                    <div class="row blocks-list">
+                        
+                        
+                    </div>
+                    <div class="row blocks-list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div class="page__footer">
+            <div class="footer">
+                <div class="container">
+                    <div class="footer__inner">
+                        <script type="text/javascript">
+                            var isAdaptivePage = true;
+                        </script>
+                        <div class="footer__change-version hidden">
+                            <a href="javascript:setCookie('desktop', true, 0)" class="hidden footer__change-version-link footer__desktop-version-link">
+                                Перейти на полную версию сайта
+                            </a>
+                            <a href="javascript:setCookie('desktop', true, { expires: -1})" class="hidden footer__change-version-link footer__mobile-version-link">
+                                Перейти на мобильную версию сайта
+                            </a>
+                        </div>
+                        <div class="footer__text">
+                            <noindex>
+                            
+                                    <p>Copyright © <a href="/">Московская Биржа</a>, 2011 - 2021.
+                                    Все права на информацию и аналитические
+                                    материалы, размещенные на настоящем сайте Биржи, защищены в соответствии с российским
+                                    законодательством. Прежде чем приступить к использованию сайта предлагаем ознакомиться с <a href="https://fs.moex.com/f/3499/agreement.pdf">Пользовательским соглашением</a>. Воспроизведение, распространение и иное использование
+                                    информации, размещенной на сайте Биржи, или ее части допускается только с
+                                    предварительного письменного согласия Биржи.
+                                    </p>
+                                
+                            </noindex>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /footer -->
+    </div>
+
+    
+    <div id="opaco" class="hidden"></div>
+    <div id="popup" class="hidden"></div>
+    
+
+    <script type="text/javascript">
+        var options = {
+            resizable: false,
+            draggable: false,
+            position: 'center',
+            closeOnEscape: false,
+            width: 700,
+            modal: true
+        };
+
+        $(document).ready(function () {
+            $('#disclaimerLinkRu, #disclaimerLinkEn').click(function () {
+                $('#dialog-disclaimer').dialog(options).dialog('open');
+                return false;
+            });
+        });
+    </script>
+
+    <div id="dialog-disclaimer" class="hide" title='Пользовательское соглашение'>
+        <p>
+            <iframe src="/static-content/disclaimers/disclaimerru.html" frameborder="0" vspace="0" hspace="0" marginwidth="0" marginheight="0" width="680" height="400"></iframe>
+        </p>
+    </div>
+
+    <script src="/js/jquery.enhanced.cookie.js?v=20211126154642173" type="text/javascript"></script>
+    <script src="/js/registrationSubscriptions/jquery.cart.js?v=20211126154644173" type="text/javascript"></script>
+    
+
+    <script>
+        $(document).ready(function () {
+            $(".js-subscribe-cart").cart(
+                {
+                    domainName: "moex.com",
+                    loginUrl: "https://passport.moex.com/login/?return_to=",
+                    infoServiceRedirect: "https://cabinet.moex.com/infoservices/orderdetails",
+                    langID: '1',
+                    passportRegistrationUrl: "https://passport.moex.com/registration",
+                    passportRecoveryUrl: "https://passport.moex.com/password/recovery",
+                    orderRuServiceUrl: "/ru/orders",
+                    orderEnServiceUrl: "/en/orders"
+                });
+
+        });
+    </script>
+
+    <div id="new-search-reference" class="modal fade" data-lang-id="1">
+        <div class="modal-dialog md-new-search">
+            <div class="modal-content">
+                <div class="modal-body"></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://messaging.moex.com/widget.js" async></script>
+    
+
+<style>
+    .outlook-material.admin-edit {
+        border: 1px dotted #848484;
+    }
+
+    a:target.can-highlight + div {
+        border: 1px solid #d4d4d4;
+        background-color: #eeebec;
+    }
+</style>
+
+<div class="outlook-material ">
+    <div class="outlook-material-header">
+        
+    </div>
+
+    <div class="outlook-material-body">
+        <div class='text-block'><script src="/ru/stat/js/BrowserRequirementsCheck/browserRequirementsCheck.js" type="text/javascript"></script>
+<link href="/ru/stat/css/master.css" rel="stylesheet" type="text/css">
+<!--script src="/ru/stat/js/open_place_moex_account.js" type="text/javascript"></script-->
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHZR9QF');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KHZR9QF"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<script type="text/javascript">
+  $(function(){
+    var moneyMarket = $(".title-block__header-inner > a[href='/ru/markets/money/'].title-block__title");
+    if (moneyMarket.length > 0){
+      if (moneyMarket.text() === "Денежный рынок"){
+
+        var divs = $(".sidebar-list a[href='/ru/markets/money/mdeposit/']").parent().find(' > *');
+        //console.debug(divs.length);
+        var RusFar = null;
+        for(var i in divs){          
+          var j = $(divs.get(i));
+          const Text = j.text().trim();
+          //console.debug(Text);          
+          
+          if (Text === 'Полезные страницы:'){
+            //console.debug(i);
+            j.remove();          
+          } else if (Text === 'RUSFAR'){
+            RusFar = j;
+            //console.debug(i);
+          }                                        
+        }
+        
+        //setStyle($("<div>Полезные страницы:</div>").insertBefore($(".sidebar-list a[href='/msn/ru-rusfar']")));
+        setStyle($("<div>Полезные страницы:</div>").insertBefore(RusFar));
+        
+        function setStyle(el) {
+          el.css('text-align', 'center')
+            .css('color', '#9c9c9c')
+            .css('font-weight', 'normal')
+            .css('width', '90%')
+            .css('border-top', '1px outset #d8d8d8')
+            .css('padding', '10px 0 8px')
+            .css('margin', '5px auto 0');
+        }
+      }
+    }
+    });  
+</script><script>
+  $(document).ready(function(){
+    if (window.location.pathname.toLowerCase() === '/ru/investor/'){
+      var btn = $('body > div.page > div.page__main > div > div > div:nth-child(1) > div.col-lg-14.blocks-list__item._layout > div > div:nth-child(2) > button');
+      if (btn.length > 0){
+        btn.attr('onclick', "location.href = 'https://lk-place.moex.com/open?utm_source=moex.com&utm_medium=referral&utm_term=open_account'");
+      }
+    }
+  });                    
+</script><link href="/ru/stat/js/indices/indexLinkToRelatedResources/place_link.css?v=20190701" rel="stylesheet">
+<script src="/ru/stat/js/indices/indexLinkToRelatedResources/place_link.js?v=20210913"></script><!--meta content="website" property="og:type" /-->
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Группа 'Московская Биржа'"/>
+<meta name="description" content="Влияем на развитие, создаем будущее. Миссия Группы — способствовать экономическому росту и реструктуризации российской экономики путем расширения возможностей по привлечению капитала для компаний и создания удобной, надежной и прозрачной инвестиционной среды для российских и иностранных инвесторов." />
+<meta name="fb:app_id" content="https://www.facebook.com/MSKExchange"/>
+<meta  property="og:image" content="https://fs.moex.com/f/11840/moex.jpg"/>
+<meta  property="og:url" content="https://www.moex.com"/>
+<link href="https://fs.moex.com/f/11840/moex.jpg" rel="image_src" />
+
+
+<script>
+
+  $(document).ready(function(){
+
+    
+
+    if (window.location.pathname.toLowerCase() === '/ru/derivatives/currency-rate.aspx')
+
+    {
+
+		var	elem = document.getElementsByName('usdratesfm')[0];
+
+      	var frm = "<div style='margin-top:20px;'>*Индикативные курсы CAD/RUB, CHF/RUB, CNY/RUB, JPY/RUB, TRU/RUB, UAH/RUB рассчитываются методом кросс-курсов с использованием Индикативного курса USD/RUB и Индикативного курса USD/валюта третьей страны</div>";
+
+      	if (elem.length > 0){
+
+          elem.insertAdjacentHTML( 'beforeEnd', frm );
+
+      }
+
+    }
+
+  });
+
+</script>
+
+<script>
+  $(document).ready(function(){
+    
+    if (window.location.pathname.toLowerCase() === '/ru/spot/members-rating.aspx')
+    {
+		document.title = "Ведущие операторы фондового рынка — Московская Биржа";
+    }
+  });
+</script><script>
+  
+	var ticker_securities_stat = [];
+    ticker_securities_stat = [
+
+      // бегущая строка, виджет "Индексы"
+      'stock:index:SNDX:IMOEX',
+      'stock:index:RTSI:RTSI',
+      'stock:index:SNDX:MOEXBMII',
+      'stock:index:RTSI:MOEXBC',
+      'stock:index:RTSI:RVI',
+
+      // бегущая строка, виджет "Валютный рынок"
+      'currency:selt:CETS:USD000UTSTOM',
+      'currency:selt:CETS:EUR_RUB__TOM',
+      'currency:selt:CETS:EURUSD000TOM',
+      'currency:selt:CETS:CNYRUB_TOM',
+      
+      // бегущая строка, виджет "Фондовый рынок"
+      'stock:shares:TQBR:MOEX',
+      'stock:shares:TQBR:SBER',
+      'stock:shares:TQBR:GAZP',
+      'stock:shares:TQBR:LKOH',
+   
+ 
+      'stock:shares:TQBR:YNDX',
+      'stock:shares:TQBR:TCSG',
+ 
+     
+      'stock:foreignshares:FQBR:AAPL-RM',
+      'stock:foreignshares:FQBR:NVDA-RM',
+    //   'stock:foreignshares:FQBR:AMD-RM',
+    //   'stock:foreignshares:FQBR:AMZN-RM',
+      
+      
+      // бегущая строка, виджет "Срочный рынок"
+      'futures:forts:RFUD:RI',
+      'futures:forts:RFUD:MX',
+      'futures:forts:RFUD:MM',
+      'futures:forts:RFUD:SR',
+      'futures:forts:RFUD:GZ',
+      'futures:forts:RFUD:VB',
+      'futures:forts:RFUD:LK'
+
+    ];
+
+</script><script>
+document.addEventListener("DOMContentLoaded", function() { 
+    let iframes = document.querySelectorAll('.iframeAdaptive');
+    iframes.forEach(function(i) { 
+        let iframeWidth = i.width; 
+        let iframeHeight = i.height; 
+        let iframeParent = i.parentNode; 
+        let parentWidth = parseInt(getComputedStyle(iframeParent)['width'])-parseInt(getComputedStyle(iframeParent)['padding-left'])-parseInt(getComputedStyle(iframeParent)['padding-right']); 
+        let iframeProportion = parentWidth / iframeWidth;
+        i.setAttribute('width', parentWidth); 
+        i.setAttribute('height', iframeHeight * iframeProportion); 
+    });
+});
+</script></div>
+    </div>
+</div>
+
+</body>
+</html>
