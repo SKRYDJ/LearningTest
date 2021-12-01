@@ -1,0 +1,9 @@
+DEBUG:__main__:['network.log', 'request_result_getMoexCom.txt', 'script04_sub.txt', 'task04_file.log', 'task04_logger.log', 'task04_logger_zadanie_2.log', 'task04_test_file.txt', 'task04_zadanie_1.py', 'task04_zadanie_2.py', 'task04_zadanie_3.py', 'tema.py']
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): moex.com:443
+DEBUG:urllib3.connectionpool:https://moex.com:443 "GET / HTTP/1.1" 301 178
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.moex.com:443
+DEBUG:urllib3.connectionpool:https://www.moex.com:443 "GET / HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): moex.com:443
+DEBUG:urllib3.connectionpool:https://moex.com:443 "GET / HTTP/1.1" 301 178
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.moex.com:443
+DEBUG:urllib3.connectionpool:https://www.moex.com:443 "GET / HTTP/1.1" 200 None

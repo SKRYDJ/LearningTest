@@ -6,7 +6,7 @@
 import requests
 
 url = 'https://moex.com'
-url_log_text = 'task04\\request_result_getMoexCom.txt'
+url_log_text = 'task04\\task04_response_zadanie_3.txt'
 
 def get_epam ():
     response = requests.get(url.title())
@@ -14,5 +14,6 @@ def get_epam ():
         f.write(response.content)
         f.close()
     return f
+
 
 print(get_epam())
