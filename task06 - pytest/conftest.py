@@ -32,3 +32,8 @@ def dummy_delete_user():
     Схема /delete/{%id%}
     """
     return 'http://dummy.restapiexample.com/api/v1/delete/'
+
+
+@pytest.fixture
+def new_value():
+    return "hello Sergio"
