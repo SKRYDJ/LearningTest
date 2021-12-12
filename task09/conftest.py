@@ -5,6 +5,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture()
 def browser_driver():
-    driver = webdriver.Chrome(ChromeDriverManager)
-    yield driver
-    driver.quit()
+    browser_driver = webdriver.Chrome(ChromeDriverManager)
+    yield browser_driver
+    browser_driver.quit()
